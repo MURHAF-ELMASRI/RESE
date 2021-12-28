@@ -1,0 +1,13 @@
+{
+  "name": "RESE",
+  "version": "1.0.0",
+  "description": "football pitches reservation app",
+  "main": "index.js",
+  "repository": "git@github.com:MURHAF-ELMASRI/RESE.git",
+  "author": "MURHAF ELMASRI <48405071+MURHAF-ELMASRI@users.noreply.github.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}
