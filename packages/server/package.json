@@ -4,6 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "lodash": "^4.17.21"
+    "express": "^4.17.2",
+    "lodash": "^4.17.21",
+    "mongodb": "^4.2.2",
+    "typescript": "^4.5.4"
   }
 }
