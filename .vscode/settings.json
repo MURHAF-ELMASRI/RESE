@@ -1,3 +1,9 @@
 {
-  "cSpell.words": ["rese"]
+  "cSpell.words": ["rese"],
+  "eslint.workingDirectories": ["/**"],
+  "eslint.options": {
+    "overrideConfig": {
+      "rules": { "no-use-before-define": ["error", { "function": false }] }
+    }
+  }
 }
