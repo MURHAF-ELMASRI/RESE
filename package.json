@@ -20,5 +20,8 @@
   },
   "dependencies": {
     "eslint-config-airbnb": "^19.0.4"
+  },
+  "scripts": {
+    "run-client": "cd ./packages/client && yarn start"
   }
 }
