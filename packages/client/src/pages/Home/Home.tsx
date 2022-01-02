@@ -8,7 +8,7 @@ function Home() {
   const [user, setUser] = useState();
   const isLoggedIn = useMemo(() => !!user, [user]);
   const isPlayer = useMemo(
-    () => isLoggedIn && !!user.type === "player",
+    () => isLoggedIn /*  &&!!user.type === "player",*/,
     [user]
   );
 
