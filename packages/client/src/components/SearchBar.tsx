@@ -29,7 +29,7 @@ const useStyle = makeStyles((theme) => ({
     height: 30,
     minWidth: 215,
     maxWidth: 400,
-    width: "100%",
+    width: "50%",
     display: "flex",
     justifyContent: "space-Between",
     alignItems: "center",
