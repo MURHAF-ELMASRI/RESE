@@ -15,8 +15,10 @@ const theme = createTheme({
     secondary: {
       main: "#FACF5A",
     },
-    text: {
-      primary: "#071A52",
+  },
+  typography: {
+    allVariants: {
+      color: "#071A52",
     },
   },
 });
