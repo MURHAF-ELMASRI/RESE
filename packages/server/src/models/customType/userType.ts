@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export default class userType extends mongoose.SchemaType {
-  constructor(key, options) {
+  constructor(key: string, options: mongoose.AnyObject) {
     super(key, options, "userType");
   }
 
