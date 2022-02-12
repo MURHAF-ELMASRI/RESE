@@ -10,4 +10,4 @@ const subPitchModel = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("subPitchModel", subPitchModel);
+export default mongoose.model("SubPitch", subPitchModel);
