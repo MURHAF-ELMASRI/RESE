@@ -1,37 +1,27 @@
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { Icon } from "@iconify/react";
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import SearchBar from "../../components/SearchBar";
 import IconButton from "@material-ui/core/IconButton";
 import PitchListItem from "../../components/PitchListItem";
 import ButtonBase from "@material-ui/core/ButtonBase";
+import axios, { AxiosResponse } from "axios";
+import { ResponseType } from "axios";
 
 export default memo(UnSignedUser);
 
-const Data = [
-  {
-    name: "Laliga",
-    startDate: "15:15",
-    endDate: "15:15",
-    features: ["closed", "treat", "service", "counter"],
-  },
-  {
-    name: "Sporyum",
-    startDate: "15:15",
-    endDate: "15:15",
-    features: ["closed", "treat", "service", "counter"],
-  },
-
-  {
-    name: "Turkuaz",
-    startDate: "15:15",
-    endDate: "15:15",
-    features: ["closed", "treat", "service", "counter"],
-  },
-];
-
 function UnSignedUser() {
   const classes = useStyle();
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/pitches/")
+      .then((response: AxiosResponse) => response.data)
+      .then((data) => {
+        console.log(data);
+      });
+  }, []);
+
   return (
     <div className={classes.container}>
       <div className={classes.thumbnail} />
@@ -44,11 +34,11 @@ function UnSignedUser() {
           <Icon className={classes.icon} icon="mdi:logout" />
         </IconButton>
       </div>
-      {Data.map((e) => (
+      {/* {Data.map((e) => (
         <ButtonBase className={classes.iconButton}>
           <PitchListItem {...e} />
         </ButtonBase>
-      ))}
+      ))} */}
     </div>
   );
 }
