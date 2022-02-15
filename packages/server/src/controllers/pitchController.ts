@@ -4,17 +4,14 @@ import type { Request, Response } from "express";
 export const pitchController = {
   getPitches: async (req: Request, res: Response) => {
     try {
-      const pitches = await pitch.find();
-      console.log(pitches);
+      const pitches = await pitch.find({});
       res.json({
         status: "success",
-        result: (await pitches).length,
         pitches,
       });
     } catch (err: any) {
       console.log(err.message);
-
-      return res.status(500).json({ msg: "something went" });
+      return res.status(500).json({ msg: "something went wrong" });
     }
   },
 };

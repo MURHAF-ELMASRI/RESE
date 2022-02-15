@@ -7,18 +7,28 @@ import PitchListItem from "../../components/PitchListItem";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import axios, { AxiosResponse } from "axios";
 import { ResponseType } from "axios";
+import { initializePitches, PitchType } from "../../state/Pitch/pitchSlice";
+import { RootState } from "../../state/store";
+import { useDispatch, useSelector } from "react-redux";
 
 export default memo(UnSignedUser);
 
 function UnSignedUser() {
   const classes = useStyle();
-
+  const pitches = useSelector((state: RootState) => state.pitch.pitches);
+  const dispatch = useDispatch();
   useEffect(() => {
     axios
       .get("http://localhost:5000/pitches/")
-      .then((response: AxiosResponse) => response.data)
+      .then(
+        (response: AxiosResponse<{ pitches: PitchType[] }>) => response.data
+      )
       .then((data) => {
-        console.log(data);
+        dispatch(initializePitches(data.pitches));
+      })
+      .catch((e) => {
+        //TODO: show error to user using alert in mui
+        console.log(e.message);
       });
   }, []);
 
@@ -34,11 +44,11 @@ function UnSignedUser() {
           <Icon className={classes.icon} icon="mdi:logout" />
         </IconButton>
       </div>
-      {/* {Data.map((e) => (
+      {pitches?.map((e) => (
         <ButtonBase className={classes.iconButton}>
           <PitchListItem {...e} />
         </ButtonBase>
-      ))} */}
+      ))}
     </div>
   );
 }

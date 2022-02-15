@@ -10,7 +10,13 @@ interface Props {
   endDate: string;
   features?: Feature[];
 }
-function PitchListItem({ name, startDate, endDate, features }: Props) {
+function PitchListItem({
+  name,
+  openAt: startDate,
+  closeAt: endDate,
+  freeService: features,
+}: Props) {
+  console.log(startDate, endDate, features);
   const classes = useStyle();
   return (
     <div className={classes.container}>
