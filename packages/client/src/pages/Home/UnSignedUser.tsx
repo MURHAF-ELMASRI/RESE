@@ -1,22 +1,22 @@
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { Icon } from "@iconify/react";
-import { memo, useEffect } from "react";
+import { memo, useCallback, useEffect, useMemo } from "react";
 import SearchBar from "../../components/SearchBar";
 import IconButton from "@material-ui/core/IconButton";
-import PitchListItem from "../../components/PitchListItem";
-import ButtonBase from "@material-ui/core/ButtonBase";
 import axios, { AxiosResponse } from "axios";
-import { ResponseType } from "axios";
 import { initializePitches, PitchType } from "../../state/Pitch/pitchSlice";
 import { RootState } from "../../state/store";
 import { useDispatch, useSelector } from "react-redux";
-
+import { Typography } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 export default memo(UnSignedUser);
 
 function UnSignedUser() {
   const classes = useStyle();
   const pitches = useSelector((state: RootState) => state.pitch.pitches);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get("http://localhost:5000/pitches/")
@@ -32,24 +32,47 @@ function UnSignedUser() {
       });
   }, []);
 
+  const handleClickPitches = useCallback(() => {
+    navigate("/pitches");
+  }, []);
+  const pageMotion = useMemo(
+    () => ({
+      initial: { opacity: 0 },
+      animate: { opacity: 1, transition: { duration: 0.25 } },
+      exit: { opacity: 0, transition: { duration: 0.25 } },
+    }),
+    []
+  );
   return (
-    <div className={classes.container}>
+    <motion.div
+      className={classes.container}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageMotion}
+    >
       <div className={classes.thumbnail} />
       <div className={classes.header}>
         <SearchBar className={classes.search} />
-        <IconButton>
+        <IconButton
+          className={classes.iconContainer}
+          onClick={handleClickPitches}
+        >
+          <Typography>Pitches</Typography>
+        </IconButton>
+        <IconButton className={classes.iconContainer}>
           <Icon className={classes.icon} icon="bi:filter" />
         </IconButton>
-        <IconButton>
+        <IconButton className={classes.iconContainer}>
           <Icon className={classes.icon} icon="mdi:logout" />
         </IconButton>
       </div>
-      {pitches?.map((e) => (
+      {/* {pitches?.map((e) => (
         <ButtonBase className={classes.iconButton}>
           <PitchListItem {...e} />
         </ButtonBase>
-      ))}
-    </div>
+      ))} */}
+    </motion.div>
   );
 }
 
@@ -77,5 +100,8 @@ const useStyle = makeStyles((theme) => ({
   iconButton: {
     maxWidth: 464,
     justifyContent: "start",
+  },
+  iconContainer: {
+    borderRadius: 8,
   },
 }));
