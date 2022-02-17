@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Pitches from "./pages/Pitches/Pitches";
 import { AnimatePresence } from "framer-motion";
+import Signup from "./pages/SignUp/Signup";
 function App() {
   const location = useLocation();
   return (

@@ -1,15 +1,15 @@
-import makeStyles from "@material-ui/core/styles/makeStyles";
 import { Icon } from "@iconify/react";
-import { memo, useCallback, useEffect, useMemo } from "react";
-import SearchBar from "../../components/SearchBar";
+import { Typography } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 import axios, { AxiosResponse } from "axios";
+import { motion } from "framer-motion";
+import { memo, useCallback, useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import SearchBar from "../../components/SearchBar";
 import { initializePitches, PitchType } from "../../state/Pitch/pitchSlice";
 import { RootState } from "../../state/store";
-import { useDispatch, useSelector } from "react-redux";
-import { Typography } from "@material-ui/core";
-import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
 export default memo(UnSignedUser);
 
 function UnSignedUser() {
@@ -43,6 +43,11 @@ function UnSignedUser() {
     }),
     []
   );
+
+  const handleSignupPage = useCallback(() => {
+    navigate("/signup");  
+  }, []);
+
   return (
     <motion.div
       className={classes.container}
@@ -64,7 +69,11 @@ function UnSignedUser() {
           <Icon className={classes.icon} icon="bi:filter" />
         </IconButton>
         <IconButton className={classes.iconContainer}>
-          <Icon className={classes.icon} icon="mdi:logout" />
+          <Icon
+            className={classes.icon}
+            icon="mdi:logout"
+            onClick={handleSignupPage}
+          />
         </IconButton>
       </div>
       {/* {pitches?.map((e) => (
