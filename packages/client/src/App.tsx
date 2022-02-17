@@ -10,7 +10,7 @@ function App() {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
         <Route path="/pitches" element={<Pitches />} />
-        {/* <Route path="/singup" element={<Signup/>}/> */}
+        <Route path="/singup" element={<Signup/>}/>
       </Routes>
     </AnimatePresence>
   );
