@@ -29,4 +29,4 @@ const pitchModel = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("Pitch", pitchModel);
+export default mongoose.model("pitches", pitchModel);

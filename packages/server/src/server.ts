@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Router } from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -32,9 +32,13 @@ app.use(cookieParser());
 app.use(cors());
 
 //routes
-app.use("/", (req, res) => {
-  res.status(200).send("server is working");
-});
+// app.use("/", (req, res) => {
+//   res.status(200).send("server is working");
+// });
+
+// const pitchesRoutes = Router();
+
+// pitchesRoutes.use("");
 
 app.use("/user", userRouter);
 app.use("/pitches", pitchRouter);
