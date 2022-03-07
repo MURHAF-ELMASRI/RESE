@@ -1,7 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-
+import userReducer from "./User/UserSlice";
+import pitchReducer from "./Pitch/pitchSlice";
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    user: userReducer,
+    pitch: pitchReducer,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
