@@ -1,17 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import console from "console";
-
-export interface PitchType {
-  _id: string;
-  name: string;
-  phone: string;
-  location: string;
-  numberOfSubPitch: number;
-  openAt: Date;
-  closeAt: Date;
-  freeServices?: string[];
-  paidServices?: string[];
-}
+import type { PitchType } from "@rese/client-server/model/pitchModel";
 
 interface InitialState {
   pitches?: PitchType[];

@@ -1,14 +1,16 @@
 import { Icon } from "@iconify/react";
-import { Typography } from "@material-ui/core";
+import { ButtonBase, Typography } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import { PitchType } from "@rese/client-server/model/pitchModel";
 import axios, { AxiosResponse } from "axios";
 import { motion } from "framer-motion";
 import { memo, useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import PitchListItem from "../../components/PitchListItem";
 import SearchBar from "../../components/SearchBar";
-import { initializePitches, PitchType } from "../../state/Pitch/pitchSlice";
+import { initializePitches } from "../../state/Pitch/pitchSlice";
 import { RootState } from "../../state/store";
 export default memo(UnSignedUser);
 
@@ -19,7 +21,7 @@ function UnSignedUser() {
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get("http://localhost:5000/pitches/")
+      .get(`${process.env.REACT_APP_SERVER_URL}/pitches/`)
       .then(
         (response: AxiosResponse<{ pitches: PitchType[] }>) => response.data
       )
@@ -35,6 +37,7 @@ function UnSignedUser() {
   const handleClickPitches = useCallback(() => {
     navigate("/pitches");
   }, []);
+
   const pageMotion = useMemo(
     () => ({
       initial: { opacity: 0 },
@@ -44,8 +47,10 @@ function UnSignedUser() {
     []
   );
 
+  console.log(pitches);
+
   const handleSignupPage = useCallback(() => {
-    navigate("/signup");  
+    navigate("/signup");
   }, []);
 
   return (
@@ -76,11 +81,11 @@ function UnSignedUser() {
           />
         </IconButton>
       </div>
-      {/* {pitches?.map((e) => (
+      {pitches?.map((e) => (
         <ButtonBase className={classes.iconButton}>
-          <PitchListItem {...e} />
+          <PitchListItem data={e} />
         </ButtonBase>
-      ))} */}
+      ))}
     </motion.div>
   );
 }

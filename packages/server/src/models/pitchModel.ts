@@ -1,6 +1,7 @@
+import type { PitchType } from "@rese/client-server/model/pitchModel";
 import mongoose from "mongoose";
 
-const pitchModel = new mongoose.Schema({
+const pitchModel = new mongoose.Schema<PitchType>({
   mangerId: {
     type: String,
     required: true,
@@ -16,10 +17,10 @@ const pitchModel = new mongoose.Schema({
     type: Number,
   },
   openAt: {
-    type: Date,
+    type: Number,
   },
   closeAt: {
-    type: Date,
+    type: Number,
   },
   paidServices: {
     type: Array,
