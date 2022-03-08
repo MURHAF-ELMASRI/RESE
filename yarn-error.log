@@ -1,4 +1,5 @@
 Arguments: 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
   C:\Program Files\nodejs\node.exe D:\مشاريع\RESE\.yarn\releases\yarn-1.19.0.cjs add -W eslint-config-airbng
 
@@ -10,6 +11,12 @@ PATH:
 PATH: 
   C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Users\murha\AppData\Local\Microsoft\WindowsApps;;C:\Users\murha\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\murha\AppData\Roaming\npm
 >>>>>>> Stashed changes
+=======
+  C:\Program Files\nodejs\node.exe D:\web_dev\RESE\RESE\.yarn\releases\yarn-1.19.0.cjs
+
+PATH: 
+  C:\Python310\Scripts\;C:\Python310\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Python39\Scripts\;C:\Python39\;C:\Python38\Scripts\;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Users\m\AppData\Local\Programs\Python\Python37;C:\MinGW\bin;C:\ProgramData\chocolatey\bin;F:\XMPP\php;C:\Python38\;F:\Git\cmd;C:\Program Files\OpenSSL-Win64\bin;C:\Program Files\CMake\bin;C:\Program Files\Meson\;C:\Program Files\heroku\bin;C:\Program Files\nodejs\;C:\Users\m\scoop\apps\oh-my-posh\current\bin;C:\Users\m\scoop\shims;C:\Users\m\AppData\Local\Microsoft\WindowsApps;C:\jupyter_var\;C:\MinGW\bin;F:\sqlite\sqlite-tools-win32-x86-3350200;C:\Users\m\AppData\Local\Programs\Python\Python39;C:\Users\m\AppData\Local\Programs\Python\Python39\Scripts;C:\Program Files\heroku\bin;C:\Users\m\AppData\Local\GitHubDesktop\bin;C:\Users\m\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files (x86)\GitHub CLI\;C:\Users\m\AppData\Roaming\npm
+>>>>>>> origin/master
 
 Yarn version: 
   1.19.0
@@ -21,6 +28,7 @@ Platform:
   win32 x64
 
 Trace: 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
   Error: https://registry.yarnpkg.com/eslint-config-airbng: Not found
       at Request.params.callback [as _callback] (D:\مشاريع\RESE\.yarn\releases\yarn-1.19.0.cjs:78448:18)
@@ -35,12 +43,18 @@ Trace:
       at processTicksAndRejections (node:internal/process/task_queues:83:21)
 =======
   SyntaxError: D:\web_dev\RESE\RESE\package.json: Unexpected token } in JSON at position 790
+=======
+  SyntaxError: D:\web_dev\RESE\RESE\packages\server\package.json: Unexpected string in JSON at position 301
+>>>>>>> origin/master
       at JSON.parse (<anonymous>)
       at D:\web_dev\RESE\RESE\.yarn\releases\yarn-1.19.0.cjs:1098:57
       at Generator.next (<anonymous>)
       at step (D:\web_dev\RESE\RESE\.yarn\releases\yarn-1.19.0.cjs:310:30)
       at D:\web_dev\RESE\RESE\.yarn\releases\yarn-1.19.0.cjs:321:13
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> origin/master
 
 npm manifest: 
   {
@@ -63,6 +77,7 @@ npm manifest:
       "eslint-plugin-react": "7.28.0",
       "eslint-plugin-react-hooks": "4.3.0"
     },
+<<<<<<< HEAD
 <<<<<<< Updated upstream
     "dependencies": {}
 =======
@@ -75,6 +90,12 @@ npm manifest:
       "server": "yarn --cwd ./packages/server/ dev",
     }
 >>>>>>> Stashed changes
+=======
+    "dependencies": {
+      "eslint-config-airbnb": "^19.0.4",
+      "typescript": "^4.5.4"
+    }
+>>>>>>> origin/master
   }
 
 yarn manifest: 
@@ -1104,6 +1125,13 @@ Lockfile:
     dependencies:
       regenerator-runtime "^0.13.4"
   
+  "@babel/runtime@^7.15.4":
+    version "7.16.7"
+    resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.16.7.tgz#03ff99f64106588c9c403c6ecb8c3bafbbdff1fa"
+    integrity sha512-9E9FJowqAsytyOY6LG+1KuueckRL+aQW+mKvXRXnuFGyRAyepJPmEo9vgMfXUA6O9u3IeEdv9MAkppFcaQwogQ==
+    dependencies:
+      regenerator-runtime "^0.13.4"
+  
   "@babel/template@^7.16.0", "@babel/template@^7.3.3":
     version "7.16.0"
     resolved "https://registry.npmjs.org/@babel/template/-/template-7.16.0.tgz"
@@ -1940,6 +1968,14 @@ Lockfile:
     dependencies:
       "@types/node" "*"
   
+  "@types/hoist-non-react-statics@^3.3.0":
+    version "3.3.1"
+    resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#1124aafe5118cb591977aeb1ceaaed1070eb039f"
+    integrity sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==
+    dependencies:
+      "@types/react" "*"
+      hoist-non-react-statics "^3.3.0"
+  
   "@types/html-minifier-terser@^6.0.0":
     version "6.1.0"
     resolved "https://registry.npmjs.org/@types/html-minifier-terser/-/html-minifier-terser-6.1.0.tgz"
@@ -2047,6 +2083,16 @@ Lockfile:
     integrity sha512-aBTIWg1emtu95bLTLx0cpkxwGW3ueZv71nE2YFBpL8k/z5czEW8yYpOo8Dp+UUAFAtKwNaOsh/ioSeQnWlZcfw==
     dependencies:
       "@types/react" "*"
+  
+  "@types/react-redux@^7.1.20":
+    version "7.1.21"
+    resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-7.1.21.tgz#f32bbaf7cbc4b93f51e10d340aa54035c084b186"
+    integrity sha512-bLdglUiBSQNzWVVbmNPKGYYjrzp3/YDPwfOH3nLEz99I4awLlaRAPWjo6bZ2POpxztFWtDDXIPxBLVykXqBt+w==
+    dependencies:
+      "@types/hoist-non-react-statics" "^3.3.0"
+      "@types/react" "*"
+      hoist-non-react-statics "^3.3.0"
+      redux "^4.0.0"
   
   "@types/react-transition-group@^4.4.4":
     version "4.4.4"
@@ -2946,7 +2992,17 @@ Lockfile:
     dependencies:
       node-int64 "^0.4.0"
   
+<<<<<<< HEAD
 <<<<<<< Updated upstream
+=======
+  bson@^4.2.2, bson@^4.6.1:
+    version "4.6.1"
+    resolved "https://registry.yarnpkg.com/bson/-/bson-4.6.1.tgz#2b5da517539bb0f7f3ffb54ac70a384ca899641c"
+    integrity sha512-I1LQ7Hz5zgwR4QquilLNZwbhPw0Apx7i7X9kGMBTsqPdml/03Q9NBtD9nt/19ahjlphktQImrnderxqpzeVDjw==
+    dependencies:
+      buffer "^5.6.0"
+  
+>>>>>>> origin/master
   bson@^4.6.0:
     version "4.6.0"
     resolved "https://registry.npmjs.org/bson/-/bson-4.6.0.tgz"
@@ -3260,7 +3316,7 @@ Lockfile:
     resolved "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz"
     integrity sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
   
-  confusing-browser-globals@^1.0.11:
+  confusing-browser-globals@^1.0.10, confusing-browser-globals@^1.0.11:
     version "1.0.11"
     resolved "https://registry.npmjs.org/confusing-browser-globals/-/confusing-browser-globals-1.0.11.tgz"
     integrity sha512-JsPKdmh8ZkmnHxDk55FZ1TqVLvEQTvoByJZRN9jzI0UjxK/QgAmsphz7PGtqgPieQZ/CQcHWXCR7ATDNhGe+YA==
@@ -3297,6 +3353,14 @@ Lockfile:
     dependencies:
       safe-buffer "~5.1.1"
   
+  cookie-parser@^1.4.6:
+    version "1.4.6"
+    resolved "https://registry.yarnpkg.com/cookie-parser/-/cookie-parser-1.4.6.tgz#3ac3a7d35a7a03bbc7e365073a26074824214594"
+    integrity sha512-z3IzaNjdwUC2olLIB5/ITd0/setiaFMLYiZJle7xg5Fe9KWAceil7xszYfHHBtDFYLSgJduS2Ty0P1uJdPDJeA==
+    dependencies:
+      cookie "0.4.1"
+      cookie-signature "1.0.6"
+  
   cookie-signature@1.0.6:
     version "1.0.6"
     resolved "https://registry.npmjs.org/cookie-signature/-/cookie-signature-1.0.6.tgz"
@@ -3329,6 +3393,14 @@ Lockfile:
     version "1.0.3"
     resolved "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.3.tgz"
     integrity sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==
+  
+  cors@^2.8.5:
+    version "2.8.5"
+    resolved "https://registry.yarnpkg.com/cors/-/cors-2.8.5.tgz#eac11da51592dd86b9f06f6e7ac293b3df875d29"
+    integrity sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==
+    dependencies:
+      object-assign "^4"
+      vary "^1"
   
   cosmiconfig@^6.0.0:
     version "6.0.0"
@@ -3598,11 +3670,15 @@ Lockfile:
     dependencies:
       ms "2.0.0"
   
+<<<<<<< HEAD
 <<<<<<< Updated upstream
   debug@4, debug@^4.1.0, debug@^4.1.1, debug@^4.3.2:
 =======
   debug@4, debug@4.x, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2:
 >>>>>>> Stashed changes
+=======
+  debug@4, debug@4.x, debug@^4.1.0, debug@^4.1.1, debug@^4.3.2:
+>>>>>>> origin/master
     version "4.3.3"
     resolved "https://registry.npmjs.org/debug/-/debug-4.3.3.tgz"
     integrity sha512-/zxw5+vh1Tfv+4Qn7a5nsbcJKPaSvCDhojn6FEl9vupwK2VCSDtEiEtqr8DFtzYFOdz63LBkxec7DYuc2jon6Q==
@@ -4062,6 +4138,25 @@ Lockfile:
       optionator "^0.8.1"
     optionalDependencies:
       source-map "~0.6.1"
+  
+  eslint-config-airbnb-base@^15.0.0:
+    version "15.0.0"
+    resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-15.0.0.tgz#6b09add90ac79c2f8d723a2580e07f3925afd236"
+    integrity sha512-xaX3z4ZZIcFLvh2oUNvcX5oEofXda7giYmuplVxoOg5A7EXJMrUyqRgR+mhDhPK8LZ4PttFOBvCYDbX3sUoUig==
+    dependencies:
+      confusing-browser-globals "^1.0.10"
+      object.assign "^4.1.2"
+      object.entries "^1.1.5"
+      semver "^6.3.0"
+  
+  eslint-config-airbnb@^19.0.4:
+    version "19.0.4"
+    resolved "https://registry.yarnpkg.com/eslint-config-airbnb/-/eslint-config-airbnb-19.0.4.tgz#84d4c3490ad70a0ffa571138ebcdea6ab085fdc3"
+    integrity sha512-T75QYQVQX57jiNgpF9r1KegMICE94VYwoFQyMGhrvc+lB8YF2E/M/PYDaQe1AJcWaEgqLE+ErXV1Og/+6Vyzew==
+    dependencies:
+      eslint-config-airbnb-base "^15.0.0"
+      object.assign "^4.1.2"
+      object.entries "^1.1.5"
   
   eslint-config-react-app@^7.0.0:
     version "7.0.0"
@@ -5175,7 +5270,7 @@ Lockfile:
       has "^1.0.3"
       side-channel "^1.0.4"
   
-  ip@^1.1.0:
+  ip@^1.1.0, ip@^1.1.5:
     version "1.1.5"
     resolved "https://registry.npmjs.org/ip/-/ip-1.1.5.tgz"
     integrity sha1-vd7XARQpCCjAoDnnLvJfWq7ENUo=
@@ -6013,6 +6108,11 @@ Lockfile:
       array-includes "^3.1.3"
       object.assign "^4.1.2"
   
+  kareem@2.3.3:
+    version "2.3.3"
+    resolved "https://registry.yarnpkg.com/kareem/-/kareem-2.3.3.tgz#a4432d7965a5bb06fc2b4eeae71317344c9a756a"
+    integrity sha512-uESCXM2KdtOQ8LOvKyTUXEeg0MkYp4wGglTIpGcYHvjJcS5sn2Wkfrfit8m4xSbaNDAw2KdI9elgkOxZbrFYbg==
+  
   kind-of@^6.0.2:
     version "6.0.3"
     resolved "https://registry.npmjs.org/kind-of/-/kind-of-6.0.3.tgz"
@@ -6351,7 +6451,30 @@ Lockfile:
       "@types/whatwg-url" "^8.2.1"
       whatwg-url "^11.0.0"
   
+<<<<<<< HEAD
 <<<<<<< Updated upstream
+=======
+  mongodb-connection-string-url@^2.4.1:
+    version "2.4.2"
+    resolved "https://registry.yarnpkg.com/mongodb-connection-string-url/-/mongodb-connection-string-url-2.4.2.tgz#422861119764796420889f9b0416b957e1b0bde0"
+    integrity sha512-mZUXF6nUzRWk5J3h41MsPv13ukWlH4jOMSk6astVeoZ1EbdTJyF5I3wxKkvqBAOoVtzLgyEYUvDjrGdcPlKjAw==
+    dependencies:
+      "@types/whatwg-url" "^8.2.1"
+      whatwg-url "^11.0.0"
+  
+  mongodb@4.3.1:
+    version "4.3.1"
+    resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-4.3.1.tgz#e346f76e421ec6f47ddea5c8f5140e6181aaeb94"
+    integrity sha512-sNa8APSIk+r4x31ZwctKjuPSaeKuvUeNb/fu/3B6dRM02HpEgig7hTHM8A/PJQTlxuC/KFWlDlQjhsk/S43tBg==
+    dependencies:
+      bson "^4.6.1"
+      denque "^2.0.1"
+      mongodb-connection-string-url "^2.4.1"
+      socks "^2.6.1"
+    optionalDependencies:
+      saslprep "^1.0.3"
+  
+>>>>>>> origin/master
   mongodb@^4.2.2:
     version "4.2.2"
     resolved "https://registry.npmjs.org/mongodb/-/mongodb-4.2.2.tgz"
@@ -6363,6 +6486,7 @@ Lockfile:
     optionalDependencies:
       saslprep "^1.0.3"
   
+<<<<<<< HEAD
 =======
   mongodb@4.3.1, mongodb@^4.3.1:
     version "4.3.1"
@@ -6376,6 +6500,8 @@ Lockfile:
     optionalDependencies:
       saslprep "^1.0.3"
   
+=======
+>>>>>>> origin/master
   mongoose@^6.2.1:
     version "6.2.1"
     resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-6.2.1.tgz#5791f46336f785080259c007ec16ad42e606e2ee"
@@ -6401,7 +6527,10 @@ Lockfile:
     dependencies:
       debug "4.x"
   
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> origin/master
   ms@2.0.0:
     version "2.0.0"
     resolved "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz"
@@ -6514,7 +6643,7 @@ Lockfile:
     resolved "https://registry.npmjs.org/nwsapi/-/nwsapi-2.2.0.tgz"
     integrity sha512-h2AatdwYH+JHiZpv7pt/gSX1XoRGb7L/qSIeuqA6GwYoF9w1vP1cw42TO0aI2pNyshRK5893hNSl+1//vHK7hQ==
   
-  object-assign@^4.1.1:
+  object-assign@^4, object-assign@^4.1.1:
     version "4.1.1"
     resolved "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz"
     integrity sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=
@@ -7593,6 +7722,18 @@ Lockfile:
     resolved "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
     integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
   
+  react-redux@^7.2.6:
+    version "7.2.6"
+    resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.2.6.tgz#49633a24fe552b5f9caf58feb8a138936ddfe9aa"
+    integrity sha512-10RPdsz0UUrRL1NZE0ejTkucnclYSgXp5q+tB5SWx2qeG2ZJQJyymgAhwKy73yiL/13btfB6fPr+rgbMAaZIAQ==
+    dependencies:
+      "@babel/runtime" "^7.15.4"
+      "@types/react-redux" "^7.1.20"
+      hoist-non-react-statics "^3.3.2"
+      loose-envify "^1.4.0"
+      prop-types "^15.7.2"
+      react-is "^17.0.2"
+  
   react-refresh@^0.11.0:
     version "0.11.0"
     resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.11.0.tgz"
@@ -7735,7 +7876,7 @@ Lockfile:
     resolved "https://registry.npmjs.org/redux-thunk/-/redux-thunk-2.4.1.tgz"
     integrity sha512-OOYGNY5Jy2TWvTL1KgAlVy6dcx3siPJ1wTq741EPyUKfn6W6nChdICjZwCd0p8AZBs5kWpZlbkXW2nE/zjUa+Q==
   
-  redux@^4.1.2:
+  redux@^4.0.0, redux@^4.1.2:
     version "4.1.2"
     resolved "https://registry.npmjs.org/redux/-/redux-4.1.2.tgz"
     integrity sha512-SH8PglcebESbd/shgf6mii6EIoRM0zrQyjcuQ+ojmfxjTtE0z9Y8pa62iA/OJ58qjP6j27uyW4kUF4jl/jd6sw==
@@ -8147,6 +8288,11 @@ Lockfile:
       get-intrinsic "^1.0.2"
       object-inspect "^1.9.0"
   
+  sift@13.5.2:
+    version "13.5.2"
+    resolved "https://registry.yarnpkg.com/sift/-/sift-13.5.2.tgz#24a715e13c617b086166cd04917d204a591c9da6"
+    integrity sha512-+gxdEOMA2J+AI+fVsCqeNn7Tgx3M9ZN9jdi95939l1IJ8cZsqS8sqpJyOkic2SJk+1+98Uwryt/gL6XDaV+UZA==
+  
   signal-exit@^3.0.2, signal-exit@^3.0.3:
     version "3.0.6"
     resolved "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.6.tgz"
@@ -8167,6 +8313,11 @@ Lockfile:
     resolved "https://registry.npmjs.org/slash/-/slash-4.0.0.tgz"
     integrity sha512-3dOsAHXXUkQTpOYcoAxLIorMTp4gIQr5IW3iVb7A7lFIp0VHhnynm9izx6TssdrIcVIESAlVjtnO2K8bg+Coew==
   
+  smart-buffer@^4.2.0:
+    version "4.2.0"
+    resolved "https://registry.yarnpkg.com/smart-buffer/-/smart-buffer-4.2.0.tgz#6e1d71fa4f18c05f7d0ff216dd16a481d0e8d9ae"
+    integrity sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==
+  
   sockjs@^0.3.21:
     version "0.3.24"
     resolved "https://registry.npmjs.org/sockjs/-/sockjs-0.3.24.tgz"
@@ -8175,6 +8326,14 @@ Lockfile:
       faye-websocket "^0.11.3"
       uuid "^8.3.2"
       websocket-driver "^0.7.4"
+  
+  socks@^2.6.1:
+    version "2.6.2"
+    resolved "https://registry.yarnpkg.com/socks/-/socks-2.6.2.tgz#ec042d7960073d40d94268ff3bb727dc685f111a"
+    integrity sha512-zDZhHhZRY9PxRruRMR7kMhnf3I8hDs4S3f9RecfnGxvcBHQcKcIH/oUcEWffsfl1XxdYlA7nnlGbbTvPz9D8gA==
+    dependencies:
+      ip "^1.1.5"
+      smart-buffer "^4.2.0"
   
   source-list-map@^2.0.0, source-list-map@^2.0.1:
     version "2.0.1"
@@ -8929,7 +9088,7 @@ Lockfile:
       convert-source-map "^1.6.0"
       source-map "^0.7.3"
   
-  vary@~1.1.2:
+  vary@^1, vary@~1.1.2:
     version "1.1.2"
     resolved "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz"
     integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=

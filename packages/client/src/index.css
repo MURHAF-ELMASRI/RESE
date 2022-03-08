@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+}
+textarea,
+input {
+  outline: none;
+}
+#id {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
