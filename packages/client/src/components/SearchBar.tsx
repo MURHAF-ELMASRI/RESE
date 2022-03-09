@@ -1,7 +1,8 @@
-import React from "react";
-import makeStyles from "@material-ui/core/styles/makeStyles";
 import { Icon } from "@iconify/react";
+import InputBase from "@material-ui/core/InputBase";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 import classnames from "classnames";
+import React from "react";
 export default React.memo(SearchBar);
 
 interface Props {
@@ -13,7 +14,7 @@ function SearchBar({ inputText, className }: Props) {
   const classes = useStyle();
   return (
     <div className={classnames(classes.container, className)}>
-      <input
+      <InputBase
         type="text"
         className={classes.textField}
         placeholder="search"

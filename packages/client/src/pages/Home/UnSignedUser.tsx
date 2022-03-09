@@ -1,17 +1,22 @@
 import { Icon } from "@iconify/react";
-import { ButtonBase, Typography } from "@material-ui/core";
+import ButtonBase from "@material-ui/core/ButtonBase";
 import IconButton from "@material-ui/core/IconButton";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import { PitchType } from "@rese/client-server/model/pitchModel";
+import Filter from "@rese/client/src/components/Filter";
 import axios, { AxiosResponse } from "axios";
 import { motion } from "framer-motion";
 import { memo, useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useToggle } from "react-use";
 import PitchListItem from "../../components/PitchListItem";
-import SearchBar from "../../components/SearchBar";
 import { initializePitches } from "../../state/Pitch/pitchSlice";
 import { RootState } from "../../state/store";
+
 export default memo(UnSignedUser);
 
 function UnSignedUser() {
@@ -19,6 +24,9 @@ function UnSignedUser() {
   const pitches = useSelector((state: RootState) => state.pitch.pitches);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [isFilterOpen, toggleFilter] = useToggle(true);
+
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_SERVER_URL}/pitches/`)
@@ -47,10 +55,12 @@ function UnSignedUser() {
     []
   );
 
-  console.log(pitches);
+  const handleFilter = useCallback((filteredDate) => {
+    console.log(filteredDate);
+  }, []);
 
   const handleSignupPage = useCallback(() => {
-    navigate("/signup");
+    // navigate("/signup");
   }, []);
 
   return (
@@ -61,24 +71,46 @@ function UnSignedUser() {
       exit="exit"
       variants={pageMotion}
     >
+      <Filter
+        allPitches={pitches}
+        isOpen={isFilterOpen}
+        onClose={() => toggleFilter(false)}
+        onFilter={handleFilter}
+      />
+
       <div className={classes.thumbnail} />
       <div className={classes.header}>
-        <SearchBar className={classes.search} />
+        <TextField
+          name={"search"}
+          onChange={handleSignupPage}
+          className={classes.search}
+          variant="filled"
+          label={'search'}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <Icon className={classes.icon} icon="mdi:magnify" width={24} />
+              </InputAdornment>
+            ),
+          }}
+        />
+
         <IconButton
           className={classes.iconContainer}
           onClick={handleClickPitches}
         >
           <Typography>Pitches</Typography>
         </IconButton>
+
         <IconButton className={classes.iconContainer}>
           <Icon className={classes.icon} icon="bi:filter" />
         </IconButton>
-        <IconButton className={classes.iconContainer}>
-          <Icon
-            className={classes.icon}
-            icon="mdi:logout"
-            onClick={handleSignupPage}
-          />
+
+        <IconButton
+          className={classes.iconContainer}
+          onClick={handleSignupPage}
+        >
+          <Icon className={classes.icon} icon="mdi:logout" />
         </IconButton>
       </div>
       {pitches?.map((e) => (

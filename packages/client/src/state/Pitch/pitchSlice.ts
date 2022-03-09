@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { PitchType } from "@rese/client-server/model/pitchModel";
 
 interface InitialState {
-  pitches?: PitchType[];
+  pitches: PitchType[];
 }
 
 const initialState: InitialState = {
