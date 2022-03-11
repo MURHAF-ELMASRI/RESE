@@ -1,13 +1,11 @@
-import express, { Router } from "express";
-import mongoose from "mongoose";
-import cors from "cors";
 import cookieParser from "cookie-parser";
-import path from "path";
-import { userRouter } from "./routes/userRouter";
-import { pitchRouter } from "./routes/pitchRouter";
-import mongo from "connect-mongo";
-import session from "express-session";
+import cors from "cors";
 import dotenv from "dotenv";
+import express from "express";
+import mongoose from "mongoose";
+import morgan from "morgan";
+import { pitchRouter } from "./routes/pitchRouter";
+import { userRouter } from "./routes/userRouter";
 
 dotenv.config({ path: ".env" });
 const MONGODB_URL = process.env.MONGODB_URL || "";
@@ -26,10 +24,11 @@ mongoose
   });
 
 const app = express();
-
+//util
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
+app.use(morgan("tiny"));
 
 //routes
 // app.use("/", (req, res) => {
