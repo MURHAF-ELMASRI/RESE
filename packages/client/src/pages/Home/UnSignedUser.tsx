@@ -1,15 +1,15 @@
 import { Icon } from "@iconify/react";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import IconButton from "@material-ui/core/IconButton";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import InputAdornment from "@material-ui/core/InputAdornment";
 import { PitchType } from "@rese/client-server/model/pitchModel";
 import Filter from "@rese/client/src/components/Filter";
 import axios, { AxiosResponse } from "axios";
 import { motion } from "framer-motion";
-import { memo, useCallback, useEffect, useMemo } from "react";
+import { memo, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useToggle } from "react-use";
@@ -19,13 +19,19 @@ import { RootState } from "../../state/store";
 
 export default memo(UnSignedUser);
 
+const pageMotion = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1, transition: { duration: 0.25 } },
+  exit: { opacity: 0, transition: { duration: 0.25 } },
+};
+
 function UnSignedUser() {
   const classes = useStyle();
   const pitches = useSelector((state: RootState) => state.pitch.pitches);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [isFilterOpen, toggleFilter] = useToggle(true);
+  const [isFilterOpen, toggleFilter] = useToggle(false);
 
   useEffect(() => {
     axios
@@ -46,15 +52,6 @@ function UnSignedUser() {
     navigate("/pitches");
   }, []);
 
-  const pageMotion = useMemo(
-    () => ({
-      initial: { opacity: 0 },
-      animate: { opacity: 1, transition: { duration: 0.25 } },
-      exit: { opacity: 0, transition: { duration: 0.25 } },
-    }),
-    []
-  );
-
   const handleFilter = useCallback((filteredDate) => {
     console.log(filteredDate);
   }, []);
@@ -71,30 +68,42 @@ function UnSignedUser() {
       exit="exit"
       variants={pageMotion}
     >
-      <Filter
-        allPitches={pitches}
-        isOpen={isFilterOpen}
-        onClose={() => toggleFilter(false)}
-        onFilter={handleFilter}
-      />
+      <motion.div
+        className={classes.filterContainer}
+        transition={{ duration: 0.3 }}
+        animate={{
+          opacity: isFilterOpen ? 1 : 0,
+          y: isFilterOpen ? 0 : -400,
+        }}
+      >
+        <Filter
+          allPitches={pitches}
+          isOpen={isFilterOpen}
+          onClose={() => toggleFilter(false)}
+          onFilter={handleFilter}
+        />
+      </motion.div>
 
       <div className={classes.thumbnail} />
       <div className={classes.header}>
-        <TextField
-          name={"search"}
-          onChange={handleSignupPage}
-          className={classes.search}
-          variant="filled"
-          label={'search'}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <Icon className={classes.icon} icon="mdi:magnify" width={24} />
-              </InputAdornment>
-            ),
-          }}
-        />
-
+        <div className={classes.searchContainer}>
+          <TextField
+            name={"search"}
+            onChange={handleSignupPage}
+            label={"search"}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Icon
+                    className={classes.icon}
+                    icon="mdi:magnify"
+                    width={24}
+                  />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </div>
         <IconButton
           className={classes.iconContainer}
           onClick={handleClickPitches}
@@ -102,7 +111,10 @@ function UnSignedUser() {
           <Typography>Pitches</Typography>
         </IconButton>
 
-        <IconButton className={classes.iconContainer}>
+        <IconButton
+          className={classes.iconContainer}
+          onClick={() => toggleFilter(true)}
+        >
           <Icon className={classes.icon} icon="bi:filter" />
         </IconButton>
 
@@ -126,6 +138,7 @@ const useStyle = makeStyles((theme) => ({
   container: {
     display: "flex",
     flexDirection: "column",
+    position: "relative",
   },
   thumbnail: {
     width: "100%",
@@ -149,5 +162,12 @@ const useStyle = makeStyles((theme) => ({
   },
   iconContainer: {
     borderRadius: 8,
+  },
+  searchContainer: { padding: 8, marginRight: "auto" },
+  filterContainer: {
+    position: "absolute",
+    right: 0,
+    top: 3,
+    zIndex: 99,
   },
 }));
