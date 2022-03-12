@@ -54,17 +54,30 @@ export default function Filter(props: Props) {
         </IconButton>
       </div>
 
-      <TextFiledWithIcon name="name" onChange={formik.handleChange} />
       <TextFiledWithIcon
+        name="name"
+        onChange={formik.handleChange}
+        value={formik.values.name}
+      />
+      {/* <TextFiledWithIcon
         name="location"
         onChange={formik.handleChange}
         icon="mdi:map-marker-radius"
+        value={formik.values.location}
+      /> */}
+
+      <TextFiledWithIcon
+        name="date"
+        onChange={formik.handleChange}
+        icon="mdi:heart-plus-outline"
+        value={formik.values.date}
       />
 
       <TextFiledWithIcon
         name="date"
         onChange={formik.handleChange}
         icon="mdi:heart-plus-outline"
+        value={formik.values.date}
       />
     </div>
   );
@@ -73,16 +86,21 @@ interface TextFiledProps {
   icon?: string;
   onChange: FormikHandlers["handleChange"];
   name: string;
+  value: any;
 }
 
 function TextFiledWithIcon(props: TextFiledProps) {
-  const { icon, onChange, name } = props;
+  const { icon, onChange, name, value } = props;
   const classes = useStyles();
+
+  const isEmpty = !!value;
+
   return (
     <TextField
       name={name}
       onChange={onChange}
       className={classes.textField}
+      color="secondary"
       variant="outlined"
       label={name}
       InputProps={{
@@ -91,6 +109,12 @@ function TextFiledWithIcon(props: TextFiledProps) {
             <Icon icon={icon} width={20} className={classes.icon} />
           </InputAdornment>
         ),
+        className: classes.inputEmpty,
+      }}
+      InputLabelProps={{
+        classes: {
+          root: isEmpty ? classes.inputFilled : classes.inputEmpty,
+        },
       }}
     />
   );
@@ -105,6 +129,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100vw",
     maxWidth: 502,
     gap: 16,
+    borderRadius: 8,
   },
   header: {
     display: "flex",
@@ -121,6 +146,12 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.main,
   },
   closeIcon: {
+    color: theme.palette.grey[50],
+  },
+  inputFilled: {
+    color: theme.palette.secondary.main,
+  },
+  inputEmpty: {
     color: theme.palette.grey[50],
   },
 }));
