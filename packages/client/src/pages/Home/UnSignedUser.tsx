@@ -16,14 +16,10 @@ import { useToggle } from "react-use";
 import PitchListItem from "../../components/PitchListItem";
 import { initializePitches } from "../../state/Pitch/pitchSlice";
 import { RootState } from "../../state/store";
+import { pageTransition } from "../../util/const";
 
 export default memo(UnSignedUser);
 
-const pageMotion = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1, transition: { duration: 0.25 } },
-  exit: { opacity: 0, transition: { duration: 0.25 } },
-};
 
 function UnSignedUser() {
   const classes = useStyle();
@@ -57,16 +53,13 @@ function UnSignedUser() {
   }, []);
 
   const handleSignupPage = useCallback(() => {
-    // navigate("/signup");
+    navigate("/login");
   }, []);
 
   return (
     <motion.div
       className={classes.container}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      variants={pageMotion}
+      {...pageTransition}
     >
       <motion.div
         className={classes.filterContainer}
@@ -122,7 +115,7 @@ function UnSignedUser() {
           className={classes.iconContainer}
           onClick={handleSignupPage}
         >
-          <Icon className={classes.icon} icon="mdi:logout" />
+          <Icon className={classes.icon} icon="mdi:login" />
         </IconButton>
       </div>
       {pitches?.map((e) => (
