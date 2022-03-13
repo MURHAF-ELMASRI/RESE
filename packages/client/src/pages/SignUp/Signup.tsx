@@ -7,6 +7,7 @@ import type { userType } from "@rese/client-server/model/userModel";
 import juniorScore from '@rese/client/src/assets/juniorSoccer.svg';
 import logo from "@rese/client/src/assets/logo.png";
 import rectangle from "@rese/client/src/assets/rectangle.png";
+import Select from '@rese/client/src/components/Select';
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
 import React, { useCallback, useState } from "react";
@@ -121,15 +122,20 @@ function Signup() {
             />
 
       <TextField label="Cell phone"
-       onChange={formik.handleChange}
-       name="phone"
-       className={classes.input}
+              onChange={formik.handleChange}
+              name="phone"
+              className={classes.input}
               variant="outlined"
               error={formik.touched.phone && Boolean(formik.errors.phone)}
               helperText={formik.touched.phone && formik.errors.phone}
             />
 
-
+            <Select
+              label="User Type"
+              
+              data={[{ title: "owner", value: "owner" }, { title: "player", value: "player" }]}
+              value={"owner"}
+            />
       <TextField label="User Type"
        onChange={formik.handleChange}
        name="userType"
