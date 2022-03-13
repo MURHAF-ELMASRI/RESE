@@ -55,6 +55,7 @@
   },
   "devDependencies": {
     "@iconify/react": "^3.1.1",
+    "@types/classnames": "^2.3.1",
     "eslint-config-react-app": "^7.0.0"
   }
 }

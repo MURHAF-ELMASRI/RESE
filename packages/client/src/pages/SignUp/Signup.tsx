@@ -132,17 +132,9 @@ function Signup() {
 
             <Select
               label="User Type"
-              
               data={[{ title: "owner", value: "owner" }, { title: "player", value: "player" }]}
               value={"owner"}
-            />
-      <TextField label="User Type"
-       onChange={formik.handleChange}
-       name="userType"
-       className={classes.input}
-      variant="outlined"
-            />
-      
+            />    
       </div>
 
       <Button className={classes.buttonGreen} color="primary" variant="contained" onClick={formik.submitForm}>
