@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TextField from "@material-ui/core/TextField";
-import type { userType } from "@rese/client-server/model/userModel";
+import type { SingupProps } from "@rese/client-server/api/signup";
 import juniorScore from "@rese/client/src/assets/juniorSoccer.svg";
 import logo from "@rese/client/src/assets/logo.png";
 import rectangle from "@rese/client/src/assets/rectangle.png";
@@ -16,14 +16,6 @@ import { pageTransition } from "../../util/const";
 
 export default React.memo(Signup);
 
-interface InitialValuesType {
-  fullName: string;
-  password: string;
-  password2: string;
-  phone: number;
-  email: string;
-  userType: userType | undefined;
-}
 const turkishPhoneRegExp =
   /(05)([0-9]{2})\s?([0-9]{3})\s?([0-9]{2})\s?([0-9]{2})/;
 
@@ -55,14 +47,14 @@ function Signup() {
   const [showPass1, setShowPass1] = useState(false);
   const [showPass2, setShowPass2] = useState(false);
 
-  const formik = useFormik({
+  const formik = useFormik<SingupProps>({
     initialValues: {
       fullName: "",
       password: "",
       password2: "",
-      phone: "",
+      phone: 0,
       email: "",
-      userType: "",
+      userType: undefined,
     },
     validationSchema,
     onSubmit: (values, formikHelper) => {
@@ -144,7 +136,7 @@ function Signup() {
               label="User Type"
               name="userType"
               data={[
-                { title: "owner", value: "owner" },
+                { title: "manger", value: "manger" },
                 { title: "player", value: "player" },
               ]}
               value={formik.values.userType}

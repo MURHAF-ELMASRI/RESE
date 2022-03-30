@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import userType from "./customType/userType";
+
+
 const userSchema = new mongoose.Schema(
   {
     name: {
@@ -35,3 +37,4 @@ const userSchema = new mongoose.Schema(
 );
 
 export default mongoose.model("User", userSchema);
+export type UserType =typeof userType
