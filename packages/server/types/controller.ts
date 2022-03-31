@@ -1,5 +1,5 @@
 
 
 export type controllers = {
-    [k:string]: 
+    [k:string]: ()=>void
 }

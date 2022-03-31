@@ -1,4 +1,4 @@
-import pitch from "../models/pitchModel";
+import pitch from "../Tables/pitchTable";
 import type { Request, Response } from "express";
 
 export const pitchController = {

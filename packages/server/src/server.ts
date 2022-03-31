@@ -23,6 +23,7 @@ app.use(
       callback: (err: Error | null, allow?: boolean) => void
     ): void => {
       if (requestOrigin && CORS_WHITELIST.indexOf(requestOrigin) === -1) {
+        console.log({ requestOrigin });
         const message: string =
           "The CORS policy for this origin doesn't allow access from the particular origin.";
         return callback(new Error(message), false);
@@ -35,6 +36,10 @@ app.use(
 );
 
 app.use(morgan("tiny"));
+
+app.get("/", (req, res) => {
+  res.status(200).json({ msg: "server is working" });
+});
 
 app.use("/user", userRouter);
 

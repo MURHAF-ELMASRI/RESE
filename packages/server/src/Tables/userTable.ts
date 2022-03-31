@@ -1,10 +1,13 @@
+import { UserType } from "@rese/client-server/model/User";
 import mongoose from "mongoose";
-import userType from "./customType/userType";
 
-
-const userSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema<UserType>(
   {
-    name: {
+    _id: {
+      type: String,
+      required: true,
+    },
+    fullName: {
       type: String,
       required: true,
       trim: true,
@@ -26,9 +29,10 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    type: {
-      type: userType,
+    userType: {
+      type: String,
       required: true,
+      enum: ["player", "manger"],
     },
   },
   {
@@ -37,4 +41,3 @@ const userSchema = new mongoose.Schema(
 );
 
 export default mongoose.model("User", userSchema);
-export type UserType =typeof userType

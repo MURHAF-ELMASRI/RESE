@@ -7,7 +7,7 @@ import {
   FreeService,
   PaidService,
   PitchType,
-} from "@rese/client-server/model/pitchModel";
+} from "@rese/client-server/model/Pitch";
 import { FormikHandlers, useFormik } from "formik";
 
 interface InitialValue {

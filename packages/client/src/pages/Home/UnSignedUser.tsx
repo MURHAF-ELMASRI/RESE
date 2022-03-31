@@ -5,21 +5,21 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import { PitchType } from "@rese/client-server/model/pitchModel";
-import Filter from "@rese/client/src/components/Filter";
+import { PitchType } from '@rese/client-server/model/Pitch';
 import axios, { AxiosResponse } from "axios";
 import { motion } from "framer-motion";
 import { memo, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useToggle } from "react-use";
+import Filter from "../../components/Filter";
 import PitchListItem from "../../components/PitchListItem";
 import { initializePitches } from "../../state/Pitch/pitchSlice";
 import { RootState } from "../../state/store";
 import { pageTransition } from "../../util/const";
 
-export default memo(UnSignedUser);
 
+export default memo(UnSignedUser);
 
 function UnSignedUser() {
   const classes = useStyle();
@@ -31,6 +31,7 @@ function UnSignedUser() {
 
   useEffect(() => {
     axios
+      //TODO: put all routes in object
       .get(`${process.env.REACT_APP_SERVER_URL}/pitches/`)
       .then(
         (response: AxiosResponse<{ pitches: PitchType[] }>) => response.data
@@ -57,10 +58,7 @@ function UnSignedUser() {
   }, []);
 
   return (
-    <motion.div
-      className={classes.container}
-      {...pageTransition}
-    >
+    <motion.div className={classes.container} {...pageTransition}>
       <motion.div
         className={classes.filterContainer}
         transition={{ duration: 0.3 }}

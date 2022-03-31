@@ -1,6 +1,6 @@
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Typography from "@material-ui/core/Typography";
-import type { PitchType } from "@rese/client-server/model/pitchModel";
+import type { PitchType } from "@rese/client-server/model/Pitch";
 import React from "react";
 
 export default React.memo(PitchListItem);

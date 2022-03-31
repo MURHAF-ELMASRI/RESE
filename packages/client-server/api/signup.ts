@@ -1,4 +1,4 @@
-import type { UserTypeType } from "@rese/client-server/model/userModel";
+import type { UserTypeType } from "@rese/client-server/model/User";
 
 //required data for signup
 export type SingupProps = {

@@ -1,5 +1,6 @@
-export type UserTypeType = "normal" | "manger";
-export interface User {
+export type UserTypeType = "player" | "manger";
+
+export interface UserType {
   _id: string;
   fullName: string;
   password: string;
@@ -8,3 +9,5 @@ export interface User {
   email: string;
   userType: UserTypeType;
 }
+
+

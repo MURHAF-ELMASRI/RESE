@@ -1,6 +1,4 @@
 import mongoose from "mongoose";
-import reservationStateType from "./customType/reservationStateType";
-import subPitchModel from "./subPitchModel";
 
 const Reservation = new mongoose.Schema({
   subPitchId: {
@@ -18,7 +16,8 @@ const Reservation = new mongoose.Schema({
     type: Number,
   },
   state: {
-    type: reservationStateType,
+    type: String,
+    enum: ["closed", "reserved"],
   },
 });
 
