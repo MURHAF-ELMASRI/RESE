@@ -7,6 +7,8 @@
     "@types/cookie-parser": "^1.4.2",
     "@types/cors": "^2.8.12",
     "@types/express-session": "^1.17.4",
+    "@types/uniqid": "^5.3.2",
+    "bcryptjs": "^2.4.3",
     "connect-mongo": "^4.6.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -14,17 +16,23 @@
     "express-session": "^1.17.2",
     "express-validation": "^3.0.8",
     "express-validator": "^6.14.0",
+    "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "mongodb": "^4.3.1",
     "mongoose": "^6.2.1",
     "morgan": "^1.10.0",
     "ts-node": "^10.5.0",
-    "typescript": "^4.5.4"
+    "typescript": "^4.5.4",
+    "uniqid": "^5.4.0",
+    "uniquid": "^1.1.4"
   },
   "scripts": {
-    "dev": "ts-node  ./src/server.ts"
+    "dev": "nodemon"
   },
   "devDependencies": {
-    "@types/morgan": "^1.9.3"
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.5.8",
+    "@types/morgan": "^1.9.3",
+    "nodemon": "^2.0.15"
   }
 }
