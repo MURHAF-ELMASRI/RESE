@@ -8,10 +8,12 @@ import juniorScore from "@rese/client/src/assets/juniorSoccer.svg";
 import logo from "@rese/client/src/assets/logo.png";
 import rectangle from "@rese/client/src/assets/rectangle.png";
 import Select from "@rese/client/src/components/Select";
+import axios from "axios";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
 import React, { useCallback, useState } from "react";
 import * as yup from "yup";
+import getServerUrl from "../../api/getServerUrl";
 import { pageTransition } from "../../util/const";
 
 export default React.memo(Signup);
@@ -46,6 +48,7 @@ function Signup() {
   const classes = useStyle();
   const [showPass1, setShowPass1] = useState(false);
   const [showPass2, setShowPass2] = useState(false);
+  //TODO: add global loading
 
   const formik = useFormik<SingupProps>({
     initialValues: {
@@ -57,8 +60,17 @@ function Signup() {
       userType: undefined,
     },
     validationSchema,
-    onSubmit: (values, formikHelper) => {
-      console.log({ values, formikHelper });
+    onSubmit: async (values, formikHelper) => {
+      console.log("submitting", values, getServerUrl());
+      try {
+        const result = await axios
+          //TODO: create something to group url
+          .post<any,string>(`${getServerUrl()}/user/signup`, values)
+          .then((data) => JSON.parse(data));
+        console.table(result);
+      } catch (e) {
+        console.error({ e });
+      }
     },
   });
 
