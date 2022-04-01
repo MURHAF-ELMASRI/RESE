@@ -1,38 +1,32 @@
-import Typography from "@material-ui/core/Typography";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import Typography from "@material-ui/core/Typography";
+import type { PitchType } from "@rese/client-server/model/Pitch";
 import React from "react";
-import { Feature } from "../types/Features";
 
 export default React.memo(PitchListItem);
-interface Props {
-  name: string;
-  startDate: string;
-  endDate: string;
-  features?: Feature[];
-}
-function PitchListItem({
-  name,
-  openAt: startDate,
-  closeAt: endDate,
-  freeService: features,
-}: Props) {
-  console.log(startDate, endDate, features);
+type Props = {
+  data: PitchType;
+};
+function PitchListItem({ data }: Props) {
+  const { name, openAt, closeAt, freeServices } = data;
+  console.log(name, openAt, closeAt);
+
   const classes = useStyle();
   return (
     <div className={classes.container}>
       <div className={classes.left}>
         <Typography className={classes.name}>{name}</Typography>
         <div className={classes.featureContainer}>
-          {features?.map((feature) => (
-            <div className={classes.feature}>
-              <Typography>{feature}</Typography>
+          {freeServices?.map((service) => (
+            <div className={classes.service}>
+              <Typography>{service}</Typography>
             </div>
           ))}
         </div>
       </div>
       <div className={classes.right}>
-        <Typography>{startDate}</Typography>
-        <Typography>{endDate}</Typography>
+        <Typography>{openAt}</Typography>
+        <Typography>{closeAt}</Typography>
       </div>
     </div>
   );
@@ -58,7 +52,7 @@ const useStyle = makeStyles((theme) => ({
     display: "flex",
     gap: 8,
   },
-  feature: {
+  service: {
     padding: "4px 8px",
     background: theme.palette.background.default,
     borderRadius: 16,

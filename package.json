@@ -19,10 +19,11 @@
     "eslint-plugin-react-hooks": "4.3.0"
   },
   "dependencies": {
-    "eslint-config-airbnb": "^19.0.4"
-  },
-  "scripts": {
-    "run-client": "cd ./packages/client && yarn start",
+    "eslint-config-airbnb": "^19.0.4",
     "typescript": "^4.5.4"
+  },  
+  "scripts": {
+    "client": "yarn --cwd ./packages/client/ start",
+    "server": "yarn --cwd ./packages/server/ dev"
   }
 }

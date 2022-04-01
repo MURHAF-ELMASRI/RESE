@@ -15,6 +15,7 @@ const theme = createTheme({
     secondary: {
       main: "#FACF5A",
     },
+    
   },
   typography: {
     allVariants: {

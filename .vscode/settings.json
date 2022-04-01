@@ -1,5 +1,5 @@
 {
-  "cSpell.words": ["rese"],
+  "cSpell.words": ["Formik", "rese", "Singup", "uniqid"],
   "eslint.workingDirectories": ["/**"],
   "eslint.options": {
     "overrideConfig": {
