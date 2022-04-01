@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 import uniqid from "uniqid";
 import userTable from "../Tables/userTable";
 
+//TODO change secret 
 const secret = "test";
 
 export const userController: Record<string, RequestHandler[] | RequestHandler> =
@@ -37,7 +38,7 @@ export const userController: Record<string, RequestHandler[] | RequestHandler> =
       check("email")
         .custom(async (value) => {
           const checkEmail = await userTable.findOne({ email: value });
-          if (checkEmail!==null) {
+          if (checkEmail !== null) {
             return Promise.reject();
           }
         })
@@ -72,6 +73,7 @@ export const userController: Record<string, RequestHandler[] | RequestHandler> =
           phone,
           userType,
           salt,
+          status: "pending",
         });
         try {
           const result = await userModel.save();

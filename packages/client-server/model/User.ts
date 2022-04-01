@@ -8,6 +8,7 @@ export interface UserType {
   phone: number;
   email: string;
   userType: UserTypeType;
+  status:"pending"|"active"
 }
 
 
