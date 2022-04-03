@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import type { NextFunction, Request, RequestHandler, Response } from "express";
 import { check, validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
+import { pick } from "lodash";
 import uniqid from "uniqid";
 import userTable from "../Tables/userTable";
 
@@ -83,8 +84,14 @@ export const userController: Record<string, RequestHandler[] | RequestHandler> =
             secret,
             { expiresIn: "1w" }
           );
-
-          res.status(201).json({ result, token });
+          const respondData = pick(result, [
+            "_id",
+            "email",
+            "fullName",
+            "phone",
+            "status",
+          ]);
+          res.status(201).json({ ...respondData, token });
         } catch (e) {
           console.error(e);
           res.status(500).json({ msg: "internal server error" });
