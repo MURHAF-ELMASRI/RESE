@@ -73,7 +73,7 @@ function Signup() {
           return res.data;
         });
         dispatch(setUser(result));
-        navigate("/user-verify");
+        navigate("/verify-user");
       } catch (err: any) {
         console.error(err);
         const errors = err?.response?.data as {
