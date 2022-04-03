@@ -11,9 +11,12 @@ import Select from "@rese/client/src/components/Select";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
 import React, { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import * as yup from "yup";
 import { signUp } from "../../api";
 import getServerUrl from "../../api/getServerUrl";
+import { setUser } from "../../state/User/UserSlice";
 import { pageTransition } from "../../util/const";
 
 export default React.memo(Signup);
@@ -48,6 +51,9 @@ function Signup() {
   const classes = useStyle();
   const [showPass1, setShowPass1] = useState(false);
   const [showPass2, setShowPass2] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   //TODO: add global loading
 
   const formik = useFormik<SingupProps>({
@@ -63,23 +69,22 @@ function Signup() {
     onSubmit: async (values, formikHelper) => {
       console.log("submitting", values, getServerUrl());
       try {
-        const result = await signUp(values)
-          .then((res) => {
-            console.log(res.data);
-          })
-          .catch((err) => {
-            //TODO make type for check functions and display error from server
-            const errors = err.response.data as {
-              param: keyof SingupProps;
-              msg: string;
-            }[];
-            const errorObj: any = {} 
-            console.log(errors)
-            errors.forEach((x) => {errorObj[x.param]=x.msg});
-            formikHelper.setErrors(errorObj);
-          });
-      } catch (e) {
-        console.error({ e });
+        const result = await signUp(values).then((res) => {
+          return res.data;
+        });
+        dispatch(setUser(result));
+        navigate("/user-verify");
+      } catch (err: any) {
+        console.error(err);
+        const errors = err?.response?.data as {
+          param: keyof SingupProps;
+          msg: string;
+        }[];
+        const errorObj: any = {};
+        errors.forEach((x) => {
+          errorObj[x.param] = x.msg;
+        });
+        formikHelper.setErrors(errorObj);
       }
     },
   });
