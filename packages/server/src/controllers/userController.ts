@@ -1,4 +1,5 @@
 import checkTurkishPhoneNumber from "@rese/client-server/util/checkTurkishPhoneNumber";
+import generateCode from "@rese/client-server/util/generateCode";
 import bcrypt from "bcryptjs";
 import type { NextFunction, Request, RequestHandler, Response } from "express";
 import { check, validationResult } from "express-validator";
@@ -66,6 +67,8 @@ export const userController: Record<string, RequestHandler[] | RequestHandler> =
 
         const salt = await bcrypt.genSalt(5);
         const hashedPassword = await bcrypt.hash(password, salt);
+        const confirmationCode = generateCode();
+        const confirmationCodeDate = Date().toString();
 
         const userModel = new userTable({
           _id: uniqid(),
@@ -76,6 +79,8 @@ export const userController: Record<string, RequestHandler[] | RequestHandler> =
           userType,
           salt,
           status: "pending",
+          confirmationCode,
+          confirmationCodeDate,
         });
         try {
           const result = await userModel.save();
@@ -98,4 +103,7 @@ export const userController: Record<string, RequestHandler[] | RequestHandler> =
         }
       },
     ],
+    verifyUser: (req: Request, res: Response, next: NextFunction) => {
+      console.log(req.body);
+    },
   };

@@ -37,8 +37,14 @@ const userSchema = new mongoose.Schema<UserType>(
     status: {
       type: String,
       required: true,
-      enum:["pending",'active']
-    }
+      enum: ["pending", "active"],
+    },
+    confirmationCode: {
+      type: String,
+    },
+    confirmationCodeDate: {
+      type: Date,
+    },
   },
   {
     timestamps: true,
