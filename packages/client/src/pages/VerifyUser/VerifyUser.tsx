@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import logo from "@rese/client/src/assets/logo.png";
 import rectangle from "@rese/client/src/assets/rectangle.png";
+import axios from "axios";
 import { useFormik } from "formik";
 import React from "react";
 
@@ -17,7 +18,7 @@ function VerifyUser() {
       code: "",
     },
     onSubmit: (values) => {
-      console.log(values);
+      
     },
   });
 
