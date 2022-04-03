@@ -5,6 +5,7 @@ import type { NextFunction, Request, RequestHandler, Response } from "express";
 import { check, validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
 import { pick } from "lodash";
+import moment from "moment";
 import uniqid from "uniqid";
 import userTable from "../Tables/userTable";
 
@@ -49,9 +50,9 @@ export const userController: Record<string, RequestHandler[] | RequestHandler> =
         console.log(`user ${req.body.fullName} singup ${req.body.email}`);
         const { email, fullName, password, phone, userType } = req.body;
         if (!email || !fullName || !password || !phone || !userType) {
-          return res
-            .status(500)
-            .json({ location: "body", error: "missing information" });
+          return res.status(400).json({
+            error: { location: "body", msg: "missing information" },
+          });
         }
 
         try {
@@ -84,11 +85,9 @@ export const userController: Record<string, RequestHandler[] | RequestHandler> =
         });
         try {
           const result = await userModel.save();
-          const token = jwt.sign(
-            { email: result.email, id: result._id },
-            secret,
-            { expiresIn: "1w" }
-          );
+          const token = jwt.sign({ id: result._id }, secret, {
+            expiresIn: "1w",
+          });
           const respondData = pick(result, [
             "_id",
             "email",
@@ -103,7 +102,44 @@ export const userController: Record<string, RequestHandler[] | RequestHandler> =
         }
       },
     ],
-    verifyUser: (req: Request, res: Response, next: NextFunction) => {
-      console.log(req.body);
-    },
+    verifyCode: [
+      check("confirmationCode")
+        .isEmpty()
+        .withMessage("confirmation code needed")
+        .isLength({ max: 6, min: 6 })
+        .withMessage("code must be 6 number"),
+      async (req: Request, res: Response, next: NextFunction) => {
+        const userId = (req as any as { userId: string }).userId;
+        const { confirmationCode } = req.body;
+        const user = await userTable.findOne({ _id: userId });
+        if (!user || confirmationCode !== user?.confirmationCode) {
+          return res
+            .status(400)
+            .send({ error: { msg: "Confirmation Code is wrong" } });
+        }
+        if (confirmationCode !== user?.confirmationCode) {
+          return res
+            .status(400)
+            .send({ error: { msg: "Confirmation Code is wrong" } });
+        }
+        const diffInMin = moment().diff(user?.confirmationCodeDate, "minutes");
+        if (diffInMin > 5) {
+          return res
+            .status(400)
+            .send({ error: { msg: "Confirmation Code is expired" } });
+        }
+        const result = await userTable.findOneAndUpdate(
+          { _id: userId },
+          {
+            $set: {
+              status: "active",
+              confirmationCode: undefined,
+              confirmationCodeDate: undefined,
+            },
+          }
+        );
+
+        return res.status(200).json({ status: user!.status });
+      },
+    ],
   };

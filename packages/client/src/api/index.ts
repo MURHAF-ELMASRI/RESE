@@ -1,6 +1,6 @@
 import { SingupProps } from "@rese/client-server/api/signup";
+import { verifyCodeArgs } from "@rese/client-server/api/verifyCode";
 import axios from "axios";
-import getServerUrl from "./getServerUrl";
 
 const API = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}`,
@@ -15,5 +15,8 @@ API.interceptors.request.use((req) => {
 
 export const signUp = (formData: SingupProps) =>
   API.post("/user/signup", formData);
+
+export const verifyCode = (formData: verifyCodeArgs) =>
+  API.post("/user/verifyCode", formData);
 
 // export const signIn = (formData) => API.post("/user/signin", formData);
