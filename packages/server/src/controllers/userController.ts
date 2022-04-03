@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 import uniqid from "uniqid";
 import userTable from "../Tables/userTable";
 
-//TODO change secret 
+//TODO change secret
 const secret = "test";
 
 export const userController: Record<string, RequestHandler[] | RequestHandler> =
@@ -39,12 +39,12 @@ export const userController: Record<string, RequestHandler[] | RequestHandler> =
         .custom(async (value) => {
           const checkEmail = await userTable.findOne({ email: value });
           if (checkEmail !== null) {
-            return Promise.reject();
+            return Promise.reject("email is existed");
           }
         })
         .withMessage("email is existed"),
       async (req: Request, res: Response, next: NextFunction) => {
-        console.log(`user ${req.body.name} singup ${req.body.email}`);
+        console.log(`user ${req.body.fullName} singup ${req.body.email}`);
         const { email, fullName, password, phone, userType } = req.body;
         if (!email || !fullName || !password || !phone || !userType) {
           return res
@@ -55,7 +55,8 @@ export const userController: Record<string, RequestHandler[] | RequestHandler> =
         try {
           const errors = await validationResult(req);
           if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            console.log("what is gonig on", errors.array());
+            return res.status(400).json(errors.array());
           }
         } catch (e) {
           console.log(e);

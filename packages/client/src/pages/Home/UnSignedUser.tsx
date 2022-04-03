@@ -116,8 +116,8 @@ function UnSignedUser() {
           <Icon className={classes.icon} icon="mdi:login" />
         </IconButton>
       </div>
-      {pitches?.map((e) => (
-        <ButtonBase className={classes.iconButton}>
+      {pitches?.map((e,idx) => (
+        <ButtonBase key={idx} className={classes.iconButton}>
           <PitchListItem data={e} />
         </ButtonBase>
       ))}

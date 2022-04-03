@@ -8,11 +8,11 @@ import juniorScore from "@rese/client/src/assets/juniorSoccer.svg";
 import logo from "@rese/client/src/assets/logo.png";
 import rectangle from "@rese/client/src/assets/rectangle.png";
 import Select from "@rese/client/src/components/Select";
-import axios from "axios";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
 import React, { useCallback, useState } from "react";
 import * as yup from "yup";
+import { signUp } from "../../api";
 import getServerUrl from "../../api/getServerUrl";
 import { pageTransition } from "../../util/const";
 
@@ -57,17 +57,27 @@ function Signup() {
       password2: "",
       phone: 0,
       email: "",
-      userType: undefined,
+      userType: "player",
     },
     validationSchema,
     onSubmit: async (values, formikHelper) => {
       console.log("submitting", values, getServerUrl());
       try {
-        const result = await axios
-          //TODO: create something to group url
-          .post<any,string>(`${getServerUrl()}/user/signup`, values)
-          .then((data) => JSON.parse(data));
-        console.table(result);
+        const result = await signUp(values)
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((err) => {
+            //TODO make type for check functions and display error from server
+            const errors = err.response.data as {
+              param: keyof SingupProps;
+              msg: string;
+            }[];
+            const errorObj: any = {} 
+            console.log(errors)
+            errors.forEach((x) => {errorObj[x.param]=x.msg});
+            formikHelper.setErrors(errorObj);
+          });
       } catch (e) {
         console.error({ e });
       }

@@ -9738,11 +9738,6 @@ unique-string@^2.0.0:
   dependencies:
     crypto-random-string "^2.0.0"
 
-uniquid@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/uniquid/-/uniquid-1.1.4.tgz#6995487cd38e6e6599802ac7045bf9ac859028e7"
-  integrity sha1-aZVIfNOObmWZgCrHBFv5rIWQKOc=
-
 universalify@^0.1.2:
   version "0.1.2"
   resolved "https://registry.npmjs.org/universalify/-/universalify-0.1.2.tgz"

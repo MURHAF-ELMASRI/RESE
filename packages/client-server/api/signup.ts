@@ -7,5 +7,5 @@ export type SingupProps = {
   password2: string;
   phone: number;
   email: string;
-  userType: UserTypeType | undefined;
+  userType: UserTypeType;
 };

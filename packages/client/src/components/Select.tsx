@@ -52,8 +52,10 @@ function Select(props: Props) {
         value={value}
         name={name}
       >
-        {data.map((row) => (
-          <MenuItem value={row.value}>{row.title}</MenuItem>
+        {data.map((row, idx) => (
+          <MenuItem key={idx} value={row.value}>
+            {row.title}
+          </MenuItem>
         ))}
       </SelectMui>
       <FormHelperText>{helperText}</FormHelperText>
