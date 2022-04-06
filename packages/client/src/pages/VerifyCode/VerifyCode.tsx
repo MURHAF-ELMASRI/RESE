@@ -4,24 +4,37 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import logo from "@rese/client/src/assets/logo.png";
 import rectangle from "@rese/client/src/assets/rectangle.png";
-import axios from "axios";
+import { AxiosError } from "axios";
 import { useFormik } from "formik";
 import React from "react";
+import { useNavigate } from "react-router";
+import { verifyCode } from "../../api";
 
 export default React.memo(VerifyUser);
 
 function VerifyUser() {
   const classes = useStyle();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
       code: "",
     },
-    onSubmit: (values) => {
-      
+    onSubmit: (values, formikHelper) => {
+      verifyCode({ confirmationCode: values.code })
+        .then(() => {
+          navigate("/");
+        })
+        .catch((e: AxiosError) => {
+          const {field,msg}=e.response?.data.error
+          if (e.response?.status === 400 && field==='code') {
+            console.log("entered");
+            formikHelper.setFieldError("code", msg);
+          }
+        });
     },
   });
-
+  console.log(formik.touched.code, formik.errors.code);
   return (
     <div className={classes.container}>
       <img src={rectangle} className={classes.leftRect} decoding="async" />
@@ -37,6 +50,8 @@ function VerifyUser() {
           className={classes.input}
           label="code"
           variant="outlined"
+          helperText={formik.touched.code && formik.errors.code}
+          error={formik.touched.code && Boolean(formik.errors.code)}
         />
         <Button
           onClick={formik.submitForm}

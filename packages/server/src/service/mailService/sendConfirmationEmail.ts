@@ -6,8 +6,7 @@ function sendConfirmationEmail(
   email: string,
   confirmationCode: string
 ) {
-  console.log("Check");
-  transport
+  return transport
     .sendMail({
       from: process.env.mail,
       to: email,
@@ -18,7 +17,6 @@ function sendConfirmationEmail(
            <h3>${confirmationCode}</h3>
           </div>`,
     })
-    .catch((err) => console.log({ nodeMailerError: err }));
 }
 
 export default sendConfirmationEmail;

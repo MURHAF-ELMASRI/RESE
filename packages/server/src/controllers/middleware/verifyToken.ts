@@ -8,12 +8,14 @@ export default function verifyUser(
 ) {
   try {
     const token = req.headers.token;
+    console.log(req.headers);
+    console.log({ token });
     if (!token || token instanceof Array) {
       return res.status(400).json({ error: { msg: "token is missing" } });
     }
 
     const decodedData = jwt.decode(token) as { id: string };
-
+    console.log(decodedData);
     if (!decodedData.id) {
       return res.status(400).json({ error: { msg: "token is disrupted" } });
     }

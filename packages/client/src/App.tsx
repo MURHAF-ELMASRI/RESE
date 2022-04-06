@@ -5,7 +5,7 @@ import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Pitches from "./pages/Pitches/Pitches";
 import Signup from "./pages/SignUp/Signup";
-import VerifyUser from "./pages/VerifyUser/VerifyUser";
+import VerifyUser from "./pages/VerifyCode/VerifyCode";
 function App() {
   const location = useLocation();
   return (

@@ -7,6 +7,7 @@ import jwt from "jsonwebtoken";
 import { pick } from "lodash";
 import moment from "moment";
 import uniqid from "uniqid";
+import sendConfirmationEmail from "../service/mailService/sendConfirmationEmail";
 import userTable from "../Tables/userTable";
 
 //TODO change secret
@@ -61,29 +62,24 @@ export const userController: Record<string, RequestHandler[] | RequestHandler> =
             console.log("what is gonig on", errors.array());
             return res.status(400).json(errors.array());
           }
-        } catch (e) {
-          console.log(e);
-          return;
-        }
 
-        const salt = await bcrypt.genSalt(5);
-        const hashedPassword = await bcrypt.hash(password, salt);
-        const confirmationCode = generateCode();
-        const confirmationCodeDate = Date().toString();
+          const salt = await bcrypt.genSalt(5);
+          const hashedPassword = await bcrypt.hash(password, salt);
+          const confirmationCode = generateCode();
+          const confirmationCodeDate = Date().toString();
 
-        const userModel = new userTable({
-          _id: uniqid(),
-          email,
-          fullName,
-          password: hashedPassword,
-          phone,
-          userType,
-          salt,
-          status: "pending",
-          confirmationCode,
-          confirmationCodeDate,
-        });
-        try {
+          const userModel = new userTable({
+            _id: uniqid(),
+            email,
+            fullName,
+            password: hashedPassword,
+            phone,
+            userType,
+            salt,
+            status: "pending",
+            confirmationCode,
+            confirmationCodeDate,
+          });
           const result = await userModel.save();
           const token = jwt.sign({ id: result._id }, secret, {
             expiresIn: "1w",
@@ -95,6 +91,9 @@ export const userController: Record<string, RequestHandler[] | RequestHandler> =
             "phone",
             "status",
           ]);
+
+          await sendConfirmationEmail(fullName, email, confirmationCode);
+
           res.status(201).json({ ...respondData, token });
         } catch (e) {
           console.error(e);
@@ -113,20 +112,17 @@ export const userController: Record<string, RequestHandler[] | RequestHandler> =
         const { confirmationCode } = req.body;
         const user = await userTable.findOne({ _id: userId });
         if (!user || confirmationCode !== user?.confirmationCode) {
-          return res
-            .status(400)
-            .send({ error: { msg: "Confirmation Code is wrong" } });
-        }
-        if (confirmationCode !== user?.confirmationCode) {
-          return res
-            .status(400)
-            .send({ error: { msg: "Confirmation Code is wrong" } });
+          return res.status(400).send({
+            error: { field: "code", msg: "Confirmation Code is wrong" },
+          });
         }
         const diffInMin = moment().diff(user?.confirmationCodeDate, "minutes");
         if (diffInMin > 5) {
           return res
             .status(400)
-            .send({ error: { msg: "Confirmation Code is expired" } });
+            .send({
+              error: { field: "code", msg: "Confirmation Code is expired" },
+            });
         }
         const result = await userTable.findOneAndUpdate(
           { _id: userId },
@@ -139,7 +135,7 @@ export const userController: Record<string, RequestHandler[] | RequestHandler> =
           }
         );
 
-        return res.status(200).json({ status: user!.status });
+        return res.status(200).json({ status: result!.status });
       },
     ],
   };

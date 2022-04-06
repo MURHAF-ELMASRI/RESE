@@ -1,14 +1,12 @@
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import morgan from "morgan";
 import { CORS_WHITELIST } from "./config/CORS_WHITELIST";
+import { env } from "./config/env";
 import { pitchRouter } from "./routes/pitchRouter";
 import { userRouter } from "./routes/userRouter";
-
-dotenv.config({ path: ".env" });
 
 const app = express();
 
@@ -45,8 +43,8 @@ app.use("/user", userRouter);
 
 app.use("/pitches", pitchRouter);
 
-const PORT = process.env.PORT || 5000;
-const MONGODB_URL = process.env.MONGODB_URL || "";
+const PORT = env.port || 5000;
+const MONGODB_URL = env.mongoURI || "";
 // Connect to MongoDB
 mongoose
   .connect(MONGODB_URL)
