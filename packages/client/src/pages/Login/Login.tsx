@@ -28,7 +28,7 @@ function Login() {
     const navigateToSignup = useCallback(() => {
         console.log("singup")
         navigate("/signup")
-     },[])
+     },[navigate])
     
   return (
       <motion.div className={classes.container}
@@ -126,7 +126,6 @@ const useStyle = makeStyles((theme) => ({
         justifyContent:'flex-start',
         width:"100%",
         color:theme.palette.primary.main,
-
     },
     icon: {
         color:"#fff"

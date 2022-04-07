@@ -17,8 +17,8 @@ function PitchListItem({ data }: Props) {
       <div className={classes.left}>
         <Typography className={classes.name}>{name}</Typography>
         <div className={classes.featureContainer}>
-          {freeServices?.map((service) => (
-            <div className={classes.service}>
+          {freeServices?.map((service, idx) => (
+            <div key={idx} className={classes.service}>
               <Typography>{service}</Typography>
             </div>
           ))}

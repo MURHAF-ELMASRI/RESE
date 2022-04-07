@@ -34,10 +34,21 @@ const userSchema = new mongoose.Schema<UserType>(
       required: true,
       enum: ["player", "manger"],
     },
+    status: {
+      type: String,
+      required: true,
+      enum: ["pending", "active"],
+    },
+    confirmationCode: {
+      type: String,
+    },
+    confirmationCodeDate: {
+      type: Date,
+    },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export default mongoose.model("User", userSchema);
