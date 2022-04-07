@@ -12,5 +12,3 @@ export interface UserType {
   confirmationCode?: string
   confirmationCodeDate?:Date
 }
-
-

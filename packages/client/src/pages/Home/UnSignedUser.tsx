@@ -43,11 +43,11 @@ function UnSignedUser() {
         //TODO: show error to user using alert in mui
         console.log(e.message);
       });
-  }, []);
+  }, [dispatch]);
 
   const handleClickPitches = useCallback(() => {
     navigate("/pitches");
-  }, []);
+  }, [navigate]);
 
   const handleFilter = useCallback((filteredDate) => {
     console.log(filteredDate);
@@ -55,7 +55,7 @@ function UnSignedUser() {
 
   const handleSignupPage = useCallback(() => {
     navigate("/login");
-  }, []);
+  }, [navigate]);
 
   return (
     <motion.div className={classes.container} {...pageTransition}>

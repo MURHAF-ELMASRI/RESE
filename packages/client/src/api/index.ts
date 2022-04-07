@@ -19,4 +19,6 @@ export const signUp = (formData: SingupProps) =>
 export const verifyCode = (formData: verifyCodeArgs) =>
   API.post("/user/verifyCode", formData);
 
+export const resendConfirmationCode = () => API.get("/user/resendCode");
+
 // export const signIn = (formData) => API.post("/user/signin", formData);

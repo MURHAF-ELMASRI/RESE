@@ -3,7 +3,9 @@
   "eslint.workingDirectories": ["/**"],
   "eslint.options": {
     "overrideConfig": {
-      "rules": { "no-use-before-define": ["error", { "function": false }] }
+      "rules": {
+        "no-use-before-define": ["error", { "function": false }]
+      }
     }
   }
 }

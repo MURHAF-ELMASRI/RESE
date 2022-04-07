@@ -9,7 +9,7 @@ function Home() {
   const isLoggedIn = useMemo(() => !!user, [user]);
   const isPlayer = useMemo(
     () => isLoggedIn /*  &&!!user.type === "player",*/,
-    [user]
+    [isLoggedIn]
   );
 
   if (!isLoggedIn) {

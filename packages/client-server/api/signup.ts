@@ -1,6 +1,6 @@
 import type { UserTypeType } from "@rese/client-server/model/User";
 
-//required data for signup
+// required data for signup
 export type SingupProps = {
   fullName: string;
   password: string;

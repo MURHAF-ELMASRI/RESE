@@ -6,13 +6,15 @@ import logo from "@rese/client/src/assets/logo.png";
 import rectangle from "@rese/client/src/assets/rectangle.png";
 import { AxiosError } from "axios";
 import { useFormik } from "formik";
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { useNavigate } from "react-router";
-import { verifyCode } from "../../api";
+import { resendConfirmationCode, verifyCode } from "../../api";
 
 export default React.memo(VerifyUser);
 
 function VerifyUser() {
+  const [showResend, setShowResend] = useState(false);
+
   const classes = useStyle();
   const navigate = useNavigate();
 
@@ -26,24 +28,35 @@ function VerifyUser() {
           navigate("/");
         })
         .catch((e: AxiosError) => {
-          const {field,msg}=e.response?.data.error
-          if (e.response?.status === 400 && field==='code') {
-            console.log("entered");
+          const { field, msg } = e.response?.data.error;
+
+          if (e.response?.status === 400 && field === "code") {
+            setShowResend(true);
             formikHelper.setFieldError("code", msg);
           }
         });
     },
   });
+
+  const handleResendCode = useCallback(() => {
+    resendConfirmationCode();
+    setShowResend(false);
+  }, []);
+
   console.log(formik.touched.code, formik.errors.code);
+
   return (
     <div className={classes.container}>
       <img src={rectangle} className={classes.leftRect} decoding="async" />
       <img src={rectangle} className={classes.rightRect} decoding="async" />
+
       <div className={classes.body}>
         <img src={logo} className={classes.logo} decoding="async" />
+
         <Typography className={classes.text} color="primary">
           Enter verification code sent to your email
         </Typography>
+
         <TextField
           name={"code"}
           onChange={formik.handleChange}
@@ -53,6 +66,16 @@ function VerifyUser() {
           helperText={formik.touched.code && formik.errors.code}
           error={formik.touched.code && Boolean(formik.errors.code)}
         />
+
+        <Button
+          onClick={handleResendCode}
+          variant="contained"
+          className={classes.buttonGray}
+          color="default"
+        >
+          Resend Code
+        </Button>
+
         <Button
           onClick={formik.submitForm}
           variant="contained"
@@ -106,5 +129,10 @@ const useStyle = makeStyles((theme) => ({
   },
   text: {
     fontWeight: 600,
+  },
+  buttonGray: {
+    justifyContent: "flex-start",
+    width: "100%",
+    color: theme.palette.primary.main,
   },
 }));

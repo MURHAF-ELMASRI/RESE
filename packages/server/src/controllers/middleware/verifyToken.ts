@@ -4,10 +4,10 @@ import jwt from "jsonwebtoken";
 export default function verifyUser(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   try {
-    const token = req.headers.token;
+    const { token } = req.headers;
     console.log(req.headers);
     console.log({ token });
     if (!token || token instanceof Array) {
@@ -24,6 +24,5 @@ export default function verifyUser(
     next();
   } catch (error) {
     console.log(error);
-    return;
   }
 }
