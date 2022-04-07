@@ -73,14 +73,16 @@ function VerifyUser() {
           error={formik.touched.code && Boolean(formik.errors.code)}
         />
 
-        <Button
-          onClick={handleResendCode}
-          variant="contained"
-          className={classes.buttonGray}
-          color="default"
-        >
-          Resend Code
-        </Button>
+        {showResend && (
+          <Button
+            onClick={handleResendCode}
+            variant="contained"
+            className={classes.buttonGray}
+            color="default"
+          >
+            Resend Code
+          </Button>
+        )}
 
         <Button
           onClick={formik.submitForm}
