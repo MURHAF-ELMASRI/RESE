@@ -39,9 +39,15 @@ function VerifyUser() {
   });
 
   const handleResendCode = useCallback(() => {
-    resendConfirmationCode();
+    resendConfirmationCode().catch((reason) => {
+      const { field, msg } = reason.response?.data.error;
+      if (reason.response?.status === 400 && field === "code") {
+        formik.setFieldError("code", msg);
+      }
+    });
+
     setShowResend(false);
-  }, []);
+  }, [resendConfirmationCode, setShowResend, formik]);
 
   console.log(formik.touched.code, formik.errors.code);
 
@@ -131,8 +137,7 @@ const useStyle = makeStyles((theme) => ({
     fontWeight: 600,
   },
   buttonGray: {
-    justifyContent: "flex-start",
-    width: "100%",
+    alignSelf: "flex-start",
     color: theme.palette.primary.main,
   },
 }));

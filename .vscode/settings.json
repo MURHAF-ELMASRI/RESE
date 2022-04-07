@@ -1,6 +1,11 @@
 {
   "cSpell.words": ["Formik", "rese", "Singup", "uniqid"],
-  "eslint.workingDirectories": ["/**"],
+  "eslint.workingDirectories": [
+    "packages/client/",
+    "pakages/server/",
+    "pakages/client-server/",
+    "."
+  ],
   "eslint.options": {
     "overrideConfig": {
       "rules": {

@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 export default function verifyUser(
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) {
   try {
     const { token } = req.headers;

@@ -13,17 +13,28 @@ const verifyCode = [
     const { userId } = req as any as { userId: string };
     const { confirmationCode } = req.body;
     const user = await userTable.findOne({ _id: userId });
+
+    console.log(
+      user,
+      confirmationCode,
+      user?.confirmationCode,
+      user?.confirmationCode === confirmationCode
+    );
+
     if (!user || confirmationCode !== user?.confirmationCode) {
       return res.status(400).send({
         error: { field: "code", msg: "Confirmation Code is wrong" },
       });
     }
-    const diffInMin = moment().diff(user?.confirmationCodeDate, "minutes");
+
+    const diffInMin = moment().diff(user?.confirmationCodeDate, "minute");
+
     if (diffInMin > 5) {
       return res.status(400).send({
         error: { field: "code", msg: "Confirmation Code is expired" },
       });
     }
+
     const result = await userTable.findOneAndUpdate(
       { _id: userId },
       {

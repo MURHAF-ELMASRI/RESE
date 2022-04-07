@@ -10,6 +10,6 @@ userRouter.post("/signup", userController.signup);
 
 userRouter.post("/verifyCode", verifyUser, userController.verifyCode);
 
-userRouter.post("/resendCode", verifyUser, userController.resendCode);
+userRouter.get("/resendCode", verifyUser, userController.resendCode);
 
 export default userRouter;

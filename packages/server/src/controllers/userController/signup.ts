@@ -1,14 +1,13 @@
 import checkTurkishPhoneNumber from "@rese/client-server/util/checkTurkishPhoneNumber";
 import generateCode from "@rese/client-server/util/generateCode";
+import bcrypt from "bcrypt";
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import { check, validationResult } from "express-validator";
-import { pick } from "lodash";
-import uniqid from "uniqid";
+import jwt from "jsonwebtoken";
+import { pick, uniqueId } from "lodash";
 import { secret } from "../../config/jwtSecret";
 import sendConfirmationEmail from "../../service/mailService/sendConfirmationEmail";
 import userTable from "../../Tables/userTable";
-import jwt from 'jsonwebtoken'
-import bcrypt from 'bcrypt'
 
 const signup: RequestHandler[] = [
   async (req: Request, res: Response, next: NextFunction) => {
@@ -66,12 +65,16 @@ const signup: RequestHandler[] = [
       const confirmationCode = generateCode();
       const confirmationCodeDate = Date().toString();
 
-      const result = await userTable.findOneAndUpdate(
-        { email },
-        {
-          $set: {
-            _id: uniqid(),
-            email,
+      const result = await userTable.findOne({
+        email,
+        status: { $eq: "pending" },
+      });
+      const userId = result?._id ?? uniqueId();
+
+      if (result) {
+        await userTable.updateOne(
+          { email },
+          {
             fullName,
             password: hashedPassword,
             phone,
@@ -80,12 +83,24 @@ const signup: RequestHandler[] = [
             status: "pending",
             confirmationCode,
             confirmationCodeDate,
-          },
-        },
-        { upsert: true, new: true }
-      );
+          }
+        );
+      } else {
+        await userTable.create({
+          _id: userId,
+          email,
+          fullName,
+          password: hashedPassword,
+          phone,
+          userType,
+          salt,
+          status: "pending",
+          confirmationCode,
+          confirmationCodeDate,
+        });
+      }
 
-      const token = jwt.sign({ id: result._id }, secret, {
+      const token = jwt.sign({ id: userId }, secret, {
         expiresIn: "1w",
       });
       const respondData = pick(result, [
