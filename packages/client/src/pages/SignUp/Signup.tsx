@@ -8,12 +8,15 @@ import juniorScore from "@rese/client/src/assets/juniorSoccer.svg";
 import logo from "@rese/client/src/assets/logo.png";
 import rectangle from "@rese/client/src/assets/rectangle.png";
 import Select from "@rese/client/src/components/Select";
-import axios from "axios";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
 import React, { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import * as yup from "yup";
+import { signUp } from "../../api";
 import getServerUrl from "../../api/getServerUrl";
+import { setUser } from "../../state/User/UserSlice";
 import { pageTransition } from "../../util/const";
 
 export default React.memo(Signup);
@@ -48,6 +51,9 @@ function Signup() {
   const classes = useStyle();
   const [showPass1, setShowPass1] = useState(false);
   const [showPass2, setShowPass2] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   //TODO: add global loading
 
   const formik = useFormik<SingupProps>({
@@ -57,19 +63,28 @@ function Signup() {
       password2: "",
       phone: 0,
       email: "",
-      userType: undefined,
+      userType: "player",
     },
     validationSchema,
     onSubmit: async (values, formikHelper) => {
       console.log("submitting", values, getServerUrl());
       try {
-        const result = await axios
-          //TODO: create something to group url
-          .post<any,string>(`${getServerUrl()}/user/signup`, values)
-          .then((data) => JSON.parse(data));
-        console.table(result);
-      } catch (e) {
-        console.error({ e });
+        const result = await signUp(values).then((res) => {
+          return res.data;
+        });
+        dispatch(setUser(result));
+        navigate("/verify-user");
+      } catch (err: any) {
+        console.error(err);
+        const errors = err?.response?.data as {
+          param: keyof SingupProps;
+          msg: string;
+        }[];
+        const errorObj: any = {};
+        errors.forEach((x) => {
+          errorObj[x.param] = x.msg;
+        });
+        formikHelper.setErrors(errorObj);
       }
     },
   });

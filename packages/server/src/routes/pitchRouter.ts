@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { pitchController } from "../controllers/pitchController";
+import pitchController from "../controllers/pitchController";
 
-export const pitchRouter = Router();
-
+const pitchRouter = Router();
 pitchRouter.get("/", pitchController.getPitches);
+
+export default pitchRouter;
