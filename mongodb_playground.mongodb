@@ -1,0 +1,3 @@
+use("rese")
+
+db.users.deleteMany({})

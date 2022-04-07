@@ -1,6 +1,18 @@
+html{
+
+  overflow-x:hidden;
+}
+
 body {
   margin: 0;
 }
+* {
+  padding: 0;
+  margin: 0;
+  outline: none;
+  box-sizing: border-box;
+}
+
 textarea,
 input {
   outline: none;
@@ -9,4 +21,10 @@ input {
   width: 100%;
   display: flex;
   flex-direction: column;
+}
+#root{
+  height: 100vh;
+  width: 100vw;
+  overflow-x:hidden;
+  overflow-y:auto;
 }

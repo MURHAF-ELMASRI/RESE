@@ -1,6 +1,15 @@
 import { Router } from "express";
-import { userController } from "../controllers/userController";
+import verifyUser from "../controllers/middleware/verifyToken";
+import { userController } from "../controllers/userController/userController";
 
-export const userRouter = Router();
+const userRouter = Router();
 
 userRouter.post("/login", userController.login);
+
+userRouter.post("/signup", userController.signup);
+
+userRouter.post("/verifyCode", verifyUser, userController.verifyCode);
+
+userRouter.get("/resendCode", verifyUser, userController.resendCode);
+
+export default userRouter;
