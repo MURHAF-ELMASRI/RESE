@@ -1,0 +1,19 @@
+{
+  "Print to console": {
+    "scope": "typescriptreact",
+    "prefix": "funcComp",
+    "body": [
+      "import makeStyle from '@material-ui/core/styles/makeStyles';",
+      "import React, { memo } from 'react'\n",
+      "function $TM_FILENAME_BASE() {",
+      "const classes = useStyle();",
+      "return <div className={classes.container}></div>;",
+      "}\n",
+      "export default memo($TM_FILENAME_BASE);\n",
+      "const useStyle = makeStyle((theme) => ({",
+      " container: {},",
+      "}));"
+    ],
+    "description": "Create functional component with material"
+  }
+}
