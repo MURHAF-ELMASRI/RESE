@@ -1,11 +1,13 @@
+import Button from "@material-ui/core/Button";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import { FreeService, PaidService } from "@rese/client-server/model/Pitch";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import type { FreeService, PaidService } from "@rese/client-server/model/Pitch";
 import pitch from "@rese/client/src/assets/pitch.svg";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useCallback } from "react";
 import { pageTransition } from "../../util/const";
 
 interface InputProps {
@@ -18,6 +20,10 @@ interface InputProps {
   paidService: PaidService[];
   freeService: FreeService[];
 }
+
+const paidServices: PaidService[] = ["referee"];
+
+const freeServices: FreeService[] = ["counter", "transportation", "treat"];
 
 const CreatePitch = () => {
   const classes = useStyle();
@@ -33,6 +39,14 @@ const CreatePitch = () => {
       console.log(values);
     },
   });
+
+  const handleFreeServicesChange = useCallback((value) => {
+    console.log(value);
+  }, []);
+
+  const handlePaidServicesChange = useCallback((value) => {
+    console.log(value);
+  }, []);
 
   return (
     <motion.div className={classes.container} {...pageTransition}>
@@ -84,16 +98,6 @@ const CreatePitch = () => {
           />
 
           <TextField
-            label="Location"
-            onChange={formik.handleChange}
-            name="location"
-            variant="outlined"
-            error={formik.touched.location && Boolean(formik.errors.location)}
-            helperText={formik.touched.location && formik.errors.location}
-            className={classes.input}
-          />
-
-          <TextField
             onChange={formik.handleChange}
             label="Number of sub pitches"
             type="number"
@@ -116,9 +120,9 @@ const CreatePitch = () => {
           <div className={classes.dateContainer}>
             <Typography className={classes.dateTitle}>Date</Typography>
             <TextField
-              id="time"
-              label="open At"
+              label="opens At"
               type="time"
+              name="openAt"
               defaultValue="08:00"
               className={classes.dateInput}
               InputLabelProps={{
@@ -127,13 +131,14 @@ const CreatePitch = () => {
               inputProps={{
                 step: 300,
               }}
+              onChange={formik.handleChange}
             />
 
             <TextField
-              id="time"
-              label="Close At"
+              label="Closes At"
               type="time"
               defaultValue="12:00"
+              name="closeAt"
               className={classes.dateInput}
               InputLabelProps={{
                 shrink: true,
@@ -143,6 +148,40 @@ const CreatePitch = () => {
               }}
             />
           </div>
+          <Autocomplete
+            className={classes.autoComplete}
+            multiple
+            onChange={handleFreeServicesChange}
+            limitTags={2}
+            options={freeServices}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="outlined"
+                label="Free Services"
+                placeholder="choose free services"
+              />
+            )}
+          />
+
+          <Autocomplete
+            className={classes.autoComplete}
+            multiple
+            onChange={handlePaidServicesChange}
+            limitTags={2}
+            options={freeServices}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="outlined"
+                label="Paid Services"
+                placeholder="choose paid services"
+              />
+            )}
+          />
+          <Button color="primary" onClick={formik.submitForm}>
+            Create pitch
+          </Button>
         </div>
         <div className={classes.illustrationContainer}>
           <img className={classes.illustration} src={pitch} />
@@ -235,5 +274,8 @@ const useStyle = makeStyles((theme) => ({
     alignItems: "center",
     width: "100%",
     justifyContent: "center",
+  },
+  autoComplete: {
+    width: "100%",
   },
 }));
