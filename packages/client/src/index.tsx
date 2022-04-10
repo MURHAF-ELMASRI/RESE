@@ -1,5 +1,6 @@
 import createTheme from "@material-ui/core/styles/createTheme";
-import ThemeProvider from "@material-ui/styles/ThemeProvider/ThemeProvider";
+
+import ThemeProvider from "@material-ui/core/styles/MuiThemeProvider" ;
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
@@ -9,6 +10,7 @@ import "./index.css";
 import { store } from "./state/store";
 
 const theme = createTheme({
+  overrides: {},
   palette: {
     primary: {
       main: "#17B978",

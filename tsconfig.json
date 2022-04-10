@@ -10,6 +10,8 @@
     "baseUrl": ".",
     "jsx": "react",
     "allowJs": true,
+    "noImplicitAny": false,
+    "skipLibCheck": true,
     "paths": {
       "@rese/*": ["package/*/.tsconfig"]
     }

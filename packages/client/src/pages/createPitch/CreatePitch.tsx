@@ -1,4 +1,3 @@
-import Button from "@material-ui/core/Button";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
@@ -8,6 +7,7 @@ import pitch from "@rese/client/src/assets/pitch.svg";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
 import React, { useCallback } from "react";
+import Button from "../../components/Button";
 import { pageTransition } from "../../util/const";
 
 interface InputProps {
@@ -32,6 +32,7 @@ const CreatePitch = () => {
       pitchName: "",
       location: "",
       phone: "",
+      numberOfSubPitches: 1,
       freeService: [] as FreeService[],
       paidService: [] as PaidService[],
     },
@@ -179,9 +180,7 @@ const CreatePitch = () => {
               />
             )}
           />
-          <Button color="primary" onClick={formik.submitForm}>
-            Create pitch
-          </Button>
+          <Button label="Create pitch" onClick={formik.submitForm} />
         </div>
         <div className={classes.illustrationContainer}>
           <img className={classes.illustration} src={pitch} />
