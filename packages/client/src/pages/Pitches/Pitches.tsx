@@ -1,4 +1,4 @@
-import { Typography } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
 import { motion } from "framer-motion";
 import React from "react";
 import { pageTransition } from "../../util/const";

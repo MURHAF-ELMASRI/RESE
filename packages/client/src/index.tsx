@@ -1,11 +1,12 @@
+import createTheme from "@material-ui/core/styles/createTheme";
+import ThemeProvider from "@material-ui/styles/ThemeProvider/ThemeProvider";
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
-import { BrowserRouter as Router } from "react-router-dom";
-import { store } from "./state/store";
 import { Provider } from "react-redux";
+import { BrowserRouter as Router } from "react-router-dom";
+import App from "./App";
 import "./index.css";
-import { createTheme, ThemeProvider } from "@material-ui/core";
+import { store } from "./state/store";
 
 const theme = createTheme({
   palette: {
@@ -15,7 +16,6 @@ const theme = createTheme({
     secondary: {
       main: "#FACF5A",
     },
-    
   },
   typography: {
     allVariants: {
