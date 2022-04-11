@@ -13,7 +13,16 @@ interface InitialState {
   user?: User;
 }
 
-const initialState: InitialState = {};
+const initialState: InitialState = {
+  //TODO: delete this user
+  user: {
+    fullName: "Ahmet ilkol",
+    email: "murhaf.msri@gmail.com",
+    phone: "05377994261",
+    status: "active",
+    token: "kejrjjiejlwejwewe;l",
+  },
+};
 
 export const userSlice = createSlice({
   name: "user",
