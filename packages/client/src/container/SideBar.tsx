@@ -1,5 +1,6 @@
 import { Icon } from "@iconify/react";
-import { useMediaQuery, useTheme } from "@material-ui/core";
+import useMediaQuery  from "@material-ui/core/useMediaQuery/useMediaQuery";
+import   useTheme  from "@material-ui/core/styles/useTheme";
 import IconButton from "@material-ui/core/IconButton";
 import makeStyle from "@material-ui/core/styles/makeStyles";
 import Typography from "@material-ui/core/Typography";

@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TextField from "@material-ui/core/TextField";
-import type { SingupProps } from "@rese/client-server/api/signup";
+import type { SignupProps } from "@rese/client-server/api/signup";
 import juniorScore from "@rese/client/src/assets/juniorSoccer.svg";
 import logo from "@rese/client/src/assets/logo.png";
 import rectangle from "@rese/client/src/assets/rectangle.png";
@@ -13,39 +13,13 @@ import { motion } from "framer-motion";
 import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import * as yup from "yup";
 import { signUp } from "../../api";
 import getServerUrl from "../../api/getServerUrl";
 import { setUser } from "../../state/User/UserSlice";
 import { pageTransition } from "../../util/const";
+import signupValidation from "./signupValidation";
 
 export default React.memo(Signup);
-
-const turkishPhoneRegExp =
-  /(05)([0-9]{2})\s?([0-9]{3})\s?([0-9]{2})\s?([0-9]{2})/;
-
-const validationSchema = yup.object({
-  fullName: yup
-    .string()
-    .min(3, "You should enter name bigger than 3 character")
-    .required(),
-  password: yup
-    .string()
-    .min(8, "Password should be of minimum 8 characters length")
-    .required("Password is required"),
-  password2: yup
-    .string()
-    .oneOf([yup.ref("password"), null], "Passwords must match")
-    .required("Password is required"),
-  phone: yup
-    .string()
-    .matches(turkishPhoneRegExp, "Phone number is not valid")
-    .required("phone is required  "),
-  email: yup
-    .string()
-    .email("Enter a valid email")
-    .required("Email is required"),
-});
 
 function Signup() {
   const classes = useStyle();
@@ -56,7 +30,7 @@ function Signup() {
 
   //TODO: add global loading
 
-  const formik = useFormik<SingupProps>({
+  const formik = useFormik<SignupProps>({
     initialValues: {
       fullName: "",
       password: "",
@@ -65,7 +39,7 @@ function Signup() {
       email: "",
       userType: "player",
     },
-    validationSchema,
+    validationSchema:signupValidation,
     onSubmit: async (values, formikHelper) => {
       console.log("submitting", values, getServerUrl());
       try {
@@ -77,7 +51,7 @@ function Signup() {
       } catch (err: any) {
         console.error(err);
         const errors = err?.response?.data as {
-          param: keyof SingupProps;
+          param: keyof SignupProps;
           msg: string;
         }[];
         const errorObj: any = {};
@@ -91,12 +65,12 @@ function Signup() {
 
   return (
     <motion.div className={classes.container} {...pageTransition}>
-      <img src={rectangle} className={classes.leftRect} />
-      <img src={rectangle} className={classes.rightRect} />
+      <img src={rectangle} className={classes.leftRect} alt="square" />
+      <img src={rectangle} className={classes.rightRect} alt="square" />
 
       <div className={classes.content}>
         <div className={classes.leftSection}>
-          <img src={logo} className={classes.logo} />
+          <img src={logo} className={classes.logo} alt="rese" />
 
           <div className={classes.inputContainer}>
             <TextField
@@ -184,6 +158,7 @@ function Signup() {
           src={juniorScore}
           decoding="async"
           className={classes.juniorScore}
+          alt="background"
         />
       </div>
     </motion.div>

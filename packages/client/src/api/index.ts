@@ -1,4 +1,4 @@
-import { SingupProps } from "@rese/client-server/api/signup";
+import { SignupProps } from "@rese/client-server/api/signup";
 import { verifyCodeArgs } from "@rese/client-server/api/verifyCode";
 import axios from "axios";
 
@@ -13,7 +13,7 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-export const signUp = (formData: SingupProps) =>
+export const signUp = (formData: SignupProps) =>
   API.post("/user/signup", formData);
 
 export const verifyCode = (formData: verifyCodeArgs) =>

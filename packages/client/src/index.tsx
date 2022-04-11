@@ -1,5 +1,5 @@
+import { ThemeProvider } from "@material-ui/core/styles";
 import createTheme from "@material-ui/core/styles/createTheme";
-import ThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
@@ -7,7 +7,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 import { store } from "./state/store";
-
+// Please replace the '@material-ui/core/styles/MuiThemeProvider' import with:
+// `import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';`
 const theme = createTheme({
   palette: {
     primary: {
@@ -47,5 +48,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
-
-

@@ -3,11 +3,16 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import type { FreeService, PaidService } from "@rese/client-server/model/Pitch";
+import type {
+  FreeService,
+  PaidService,
+  PitchType,
+} from "@rese/client-server/model/Pitch";
 import pitch from "@rese/client/src/assets/pitch.svg";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
-import React, { useCallback } from "react";
+import round from "lodash/round";
+import React, { useCallback, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import Avatar from "../../components/Avatar";
 import Button from "../../components/Button";
@@ -18,7 +23,7 @@ import { pageTransition } from "../../util/const";
 
 interface InputProps {
   pitchName: string;
-  location: string;
+  location: Pick<PitchType, "location"> | undefined;
   phone: string;
   numberOfSubPitches?: number;
   openAt?: Date;
@@ -34,12 +39,12 @@ const freeServices: FreeService[] = ["counter", "transportation", "treat"];
 const CreatePitch = () => {
   const classes = useStyle();
   const dispatch = useDispatch();
-  const [isDialogOpen, openDialog, closeDialog] = useBoolean(true);
+  const [isDialogOpen, openDialog, closeDialog] = useBoolean();
   const formik = useFormik<InputProps>({
     initialValues: {
       pitchName: "",
-      location: "",
       phone: "",
+      location: undefined,
       numberOfSubPitches: 1,
       freeService: [] as FreeService[],
       paidService: [] as PaidService[],
@@ -59,15 +64,25 @@ const CreatePitch = () => {
 
   const handleClickAvatar = useCallback(() => {
     dispatch(toggleSideBar());
-  }, [dispatch, toggleSideBar]);
+  }, [dispatch]);
 
   const handleSelectLocation = useCallback(
-    (location: string) => {
+    (location) => {
+      console.log(location);
       formik.setFieldValue("location", location);
     },
-    [formik.setFieldValue]
+    [formik]
   );
-
+  console.log(formik.values.location);
+  const locationText = useMemo(
+    () =>
+      `${round(formik.values.location?.location.lat ?? 0, 3)}, ${round(
+        formik.values.location?.location.lng ?? 0,
+        3
+      )}`,
+    [formik.values.location?.location.lat, formik.values.location?.location.lng]
+  );
+  console.log(locationText);
   return (
     <motion.div className={classes.container} {...pageTransition}>
       <LocationDialog
@@ -106,6 +121,7 @@ const CreatePitch = () => {
             name="location"
             className={classes.input}
             variant="outlined"
+            value={locationText}
             onClick={openDialog}
             InputProps={{
               endAdornment: (
@@ -203,7 +219,7 @@ const CreatePitch = () => {
             multiple
             onChange={handlePaidServicesChange}
             limitTags={2}
-            options={freeServices}
+            options={paidServices}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -216,7 +232,7 @@ const CreatePitch = () => {
           <Button label="Create pitch" onClick={formik.submitForm} />
         </div>
         <div className={classes.illustrationContainer}>
-          <img className={classes.illustration} src={pitch} />
+          <img className={classes.illustration} src={pitch} alt="pitch" />
         </div>
       </div>
     </motion.div>

@@ -1,16 +1,9 @@
 {
-  "cSpell.words": ["Formik", "rese", "Singup", "uniqid"],
+  "cSpell.words": ["Formik", "rese", "Signup", "uniqid"],
   "eslint.workingDirectories": [
-    "packages/client/",
-    "pakages/server/",
-    "pakages/client-server/",
+    "packages/client/*",
+    "pakages/server/*",
+    "pakages/client-server/*",
     "."
-  ],
-  "eslint.options": {
-    "overrideConfig": {
-      "rules": {
-        "no-use-before-define": ["error", { "function": false }]
-      }
-    }
-  }
+  ]
 }

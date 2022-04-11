@@ -12,7 +12,7 @@ import userTable from "../../Tables/userTable";
 const signup: RequestHandler[] = [
   async (req: Request, res: Response, next: NextFunction) => {
     console.debug(req.body);
-    console.log(`user ${req.body.fullName} singup ${req.body.email}`);
+    console.log(`user ${req.body.fullName} Signup ${req.body.email}`);
     next();
   },
 
@@ -43,7 +43,7 @@ const signup: RequestHandler[] = [
     .withMessage("email is existed"),
 
   async (req: Request, res: Response, next: NextFunction) => {
-    console.log(`user ${req.body.fullName} singup ${req.body.email}`);
+    console.log(`user ${req.body.fullName} Signup ${req.body.email}`);
 
     const { email, fullName, password, phone, userType } = req.body;
 

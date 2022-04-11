@@ -5,10 +5,10 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import { PitchType } from '@rese/client-server/model/Pitch';
+import { PitchType } from "@rese/client-server/model/Pitch";
 import axios, { AxiosResponse } from "axios";
 import { motion } from "framer-motion";
-import { memo, useCallback, useEffect } from "react";
+import React, { memo, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useToggle } from "react-use";
@@ -17,7 +17,6 @@ import PitchListItem from "../../components/PitchListItem";
 import { initializePitches } from "../../state/Pitch/pitchSlice";
 import { RootState } from "../../state/store";
 import { pageTransition } from "../../util/const";
-
 
 export default memo(UnSignedUser);
 
@@ -116,7 +115,7 @@ function UnSignedUser() {
           <Icon className={classes.icon} icon="mdi:login" />
         </IconButton>
       </div>
-      {pitches?.map((e,idx) => (
+      {pitches?.map((e, idx) => (
         <ButtonBase key={idx} className={classes.iconButton}>
           <PitchListItem data={e} />
         </ButtonBase>

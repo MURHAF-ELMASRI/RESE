@@ -26,7 +26,7 @@ function Login() {
   });
 
     const navigateToSignup = useCallback(() => {
-        console.log("singup")
+        console.log("Signup")
         navigate("/signup")
      },[navigate])
     

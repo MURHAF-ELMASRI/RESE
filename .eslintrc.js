@@ -13,16 +13,12 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   parserOptions: {
     projects: ["./packages/*"],
+    ecmaVersion: 2020,
   },
   plugins: ["react", "@typescript-eslint"],
   rules: {
     quotes: [1, "double"],
-    "linebreak-style": ["error", "windows"],
-    "jsx-a11y/alt-text": [
-      0,
-      {
-        img: ["off"],
-      },
-    ],
+    "linebreak-style": [0, "windows"],
+    "jsx-a11y/alt-text": [0],
   },
 };

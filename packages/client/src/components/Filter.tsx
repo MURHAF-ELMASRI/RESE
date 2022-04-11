@@ -10,6 +10,7 @@ import {
   PitchType,
 } from "@rese/client-server/model/Pitch";
 import { FormikHandlers, useFormik } from "formik";
+import React, { memo } from "react";
 
 interface InitialValue {
   name: string;
@@ -25,8 +26,9 @@ interface Props {
   onFilter: (filteredData: PitchType[]) => void;
 }
 //TODO save longitude and latitude and make search filter according to a circle with 5km radius
+export default memo(Filter);
 
-export default function Filter(props: Props) {
+function Filter(props: Props) {
   const { onClose } = props;
   const classes = useStyles();
   const formik = useFormik<InitialValue>({
