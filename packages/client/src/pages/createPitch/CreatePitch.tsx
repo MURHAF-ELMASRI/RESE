@@ -7,7 +7,10 @@ import pitch from "@rese/client/src/assets/pitch.svg";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
 import React, { useCallback } from "react";
+import { useDispatch } from "react-redux";
+import Avatar from "../../components/Avatar";
 import Button from "../../components/Button";
+import { toggleSideBar } from "../../state/ui/uiSlice";
 import { pageTransition } from "../../util/const";
 
 interface InputProps {
@@ -27,6 +30,7 @@ const freeServices: FreeService[] = ["counter", "transportation", "treat"];
 
 const CreatePitch = () => {
   const classes = useStyle();
+  const dispatch = useDispatch();
   const formik = useFormik<InputProps>({
     initialValues: {
       pitchName: "",
@@ -49,18 +53,20 @@ const CreatePitch = () => {
     console.log(value);
   }, []);
 
+  const handleClickAvatar = useCallback(() => {
+    dispatch(toggleSideBar());
+  }, [dispatch, toggleSideBar]);
   return (
     <motion.div className={classes.container} {...pageTransition}>
       <div className={classes.header}>
         <div className={classes.greenLine} />
         <div className={classes.headerContent}>
           {/* TODO: specify special avatar for every user */}
-          <div className={classes.avatarContainer}>
-            <img
-              className={classes.avatar}
-              src={"https://avatars.dicebear.com/api/micah/jejeiiwllf.svg"}
-            />
-          </div>
+
+          <Avatar
+            onClick={handleClickAvatar}
+            src={"https://avatars.dicebear.com/api/micah/jejeiiwllf.svg"}
+          />
           <Typography component={"h6"} className={classes.title}>
             Create New Pitch
           </Typography>
@@ -193,7 +199,9 @@ const CreatePitch = () => {
 export default React.memo(CreatePitch);
 
 const useStyle = makeStyles((theme) => ({
-  container: {},
+  container: {
+    flex: 1,
+  },
   header: {
     boxShadow:
       "0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.12), 0px 1px 3px rgba(0, 0, 0, 0.2);",
@@ -269,10 +277,13 @@ const useStyle = makeStyles((theme) => ({
     width: "100%",
   },
   illustrationContainer: {
-    display: "flex",
     alignItems: "center",
+    display: "none",
     width: "100%",
     justifyContent: "center",
+    [theme.breakpoints.up("lg")]: {
+      display: "flex",
+    },
   },
   autoComplete: {
     width: "100%",
