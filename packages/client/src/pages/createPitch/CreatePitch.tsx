@@ -1,3 +1,4 @@
+import { Icon } from "@iconify/react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
@@ -10,6 +11,8 @@ import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import Avatar from "../../components/Avatar";
 import Button from "../../components/Button";
+import LocationDialog from "../../components/LocationDialog";
+import useBoolean from "../../hooks/useBoolean";
 import { toggleSideBar } from "../../state/ui/uiSlice";
 import { pageTransition } from "../../util/const";
 
@@ -31,6 +34,7 @@ const freeServices: FreeService[] = ["counter", "transportation", "treat"];
 const CreatePitch = () => {
   const classes = useStyle();
   const dispatch = useDispatch();
+  const [isDialogOpen, openDialog, closeDialog] = useBoolean(true);
   const formik = useFormik<InputProps>({
     initialValues: {
       pitchName: "",
@@ -56,8 +60,21 @@ const CreatePitch = () => {
   const handleClickAvatar = useCallback(() => {
     dispatch(toggleSideBar());
   }, [dispatch, toggleSideBar]);
+
+  const handleSelectLocation = useCallback(
+    (location: string) => {
+      formik.setFieldValue("location", location);
+    },
+    [formik.setFieldValue]
+  );
+
   return (
     <motion.div className={classes.container} {...pageTransition}>
+      <LocationDialog
+        open={isDialogOpen}
+        onClose={closeDialog}
+        onSubmit={handleSelectLocation}
+      />
       <div className={classes.header}>
         <div className={classes.greenLine} />
         <div className={classes.headerContent}>
@@ -85,13 +102,23 @@ const CreatePitch = () => {
           />
 
           <TextField
-            label="Location"
-            onChange={formik.handleChange}
+            label="location"
             name="location"
+            className={classes.input}
             variant="outlined"
+            onClick={openDialog}
+            InputProps={{
+              endAdornment: (
+                <Icon
+                  width={24}
+                  color={"#071A52"}
+                  icon="mdi:map-marker-multiple"
+                />
+              ),
+              readOnly: true,
+            }}
             error={formik.touched.location && Boolean(formik.errors.location)}
             helperText={formik.touched.location && formik.errors.location}
-            className={classes.input}
           />
 
           <TextField
@@ -288,4 +315,5 @@ const useStyle = makeStyles((theme) => ({
   autoComplete: {
     width: "100%",
   },
+  locationIcon: {},
 }));
