@@ -12,4 +12,6 @@ userRouter.post("/verifyCode", verifyUser, userController.verifyCode);
 
 userRouter.get("/resendCode", verifyUser, userController.resendCode);
 
+
+
 export default userRouter;

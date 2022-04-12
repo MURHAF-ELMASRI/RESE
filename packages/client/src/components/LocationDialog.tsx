@@ -35,12 +35,10 @@ function LocationDialog(props: Props) {
   const handleMapClick = useCallback(
     (coord) => {
       const { lat, lng } = coord;
-      console.log(lat, lng);
       setPoint({ location: { lat, lng } });
     },
     [setPoint]
   );
-  console.log(point);
   return (
     <Dialog open={open ?? true} onClose={onClose} fullScreen={fullScreen}>
       <div className={classes.container}>

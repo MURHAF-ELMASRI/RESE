@@ -7,7 +7,6 @@ module.exports = {
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
-    "airbnb",
     "airbnb/hooks",
   ],
   parser: "@typescript-eslint/parser",
@@ -20,5 +19,6 @@ module.exports = {
     quotes: [1, "double"],
     "linebreak-style": [0, "windows"],
     "jsx-a11y/alt-text": [0],
+    "import/extensions": [0],
   },
 };

@@ -39,7 +39,7 @@ app.get("/", (req, res) => {
 
 app.use("/user", userRouter);
 
-app.use("/pitches", pitchRouter);
+app.use("/pitch", pitchRouter);
 
 const PORT = env.port || 5000;
 const MONGODB_URL = env.mongoURI || "";

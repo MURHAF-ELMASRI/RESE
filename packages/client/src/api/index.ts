@@ -21,4 +21,7 @@ export const verifyCode = (formData: verifyCodeArgs) =>
 
 export const resendConfirmationCode = () => API.get("/user/resendCode");
 
+export const createPitch = (formDate) =>
+  API.post("/pitch/createPitch", formDate);
+
 // export const signIn = (formData) => API.post("/user/signin", formData);

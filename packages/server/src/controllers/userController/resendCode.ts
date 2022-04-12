@@ -1,5 +1,5 @@
 import generateCode from "@rese/client-server/util/generateCode";
-import { NextFunction, Request, Response } from "express";
+import {  Request, Response } from "express";
 import moment from "moment";
 import sendConfirmationEmail from "../../service/mailService/sendConfirmationEmail";
 import userTable from "../../Tables/userTable";
@@ -7,7 +7,6 @@ import userTable from "../../Tables/userTable";
 export default async function resendCode(
   req: Request,
   res: Response,
-  next: NextFunction
 ) {
   const { userId } = req as any as { userId: string };
   const user = await userTable.findOne({ _id: userId });
@@ -20,7 +19,6 @@ export default async function resendCode(
 
   if (user.confirmationCode) {
     const diffInMin = moment(Date()).diff(user?.confirmationCodeDate, "minute");
-    console.log(diffInMin, user?.confirmationCodeDate, moment(Date()));
 
     if (diffInMin < 1) {
       return res.status(400).send({
@@ -41,7 +39,7 @@ export default async function resendCode(
         confirmationCode,
         confirmationCodeDate: Date(),
       },
-    }
+    },
   );
 
   return res.status(200).json({ msg: "ok" });

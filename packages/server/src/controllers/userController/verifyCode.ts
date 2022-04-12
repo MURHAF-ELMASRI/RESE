@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import { check } from "express-validator";
 import moment from "moment";
 import userTable from "../../Tables/userTable";
@@ -9,17 +9,10 @@ const verifyCode = [
     .withMessage("confirmation code needed")
     .isLength({ max: 6, min: 6 })
     .withMessage("code must be 6 number"),
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response) => {
     const { userId } = req as any as { userId: string };
     const { confirmationCode } = req.body;
     const user = await userTable.findOne({ _id: userId });
-
-    console.log(
-      user,
-      confirmationCode,
-      user?.confirmationCode,
-      user?.confirmationCode === confirmationCode
-    );
 
     if (!user || confirmationCode !== user?.confirmationCode) {
       return res.status(400).send({
@@ -46,7 +39,7 @@ const verifyCode = [
       }
     );
 
-    return res.status(200).json({ status: result!.status });
+    return res.status(200).json({ status: result?.status });
   },
 ];
 

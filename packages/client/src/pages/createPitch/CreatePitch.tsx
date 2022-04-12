@@ -6,7 +6,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import type {
   FreeService,
   PaidService,
-  PitchType,
+  PitchType
 } from "@rese/client-server/model/Pitch";
 import pitch from "@rese/client/src/assets/pitch.svg";
 import { useFormik } from "formik";
@@ -14,22 +14,25 @@ import { motion } from "framer-motion";
 import round from "lodash/round";
 import React, { useCallback, useMemo } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import { createPitch } from "../../api";
 import Avatar from "../../components/Avatar";
 import Button from "../../components/Button";
 import LocationDialog from "../../components/LocationDialog";
 import useBoolean from "../../hooks/useBoolean";
 import { toggleSideBar } from "../../state/ui/uiSlice";
 import { pageTransition } from "../../util/const";
+import createPitchValidation from "./createPitchValidation";
 
 interface InputProps {
   pitchName: string;
   location: Pick<PitchType, "location"> | undefined;
   phone: string;
   numberOfSubPitches?: number;
-  openAt?: Date;
-  closeAt?: Date;
-  paidService: PaidService[];
-  freeService: FreeService[];
+  openAt: number;
+  closeAt: number;
+  paidServices: PaidService[];
+  freeServices: FreeService[];
 }
 
 const paidServices: PaidService[] = ["referee"];
@@ -40,27 +43,44 @@ const CreatePitch = () => {
   const classes = useStyle();
   const dispatch = useDispatch();
   const [isDialogOpen, openDialog, closeDialog] = useBoolean();
+  const navigate = useNavigate();
   const formik = useFormik<InputProps>({
     initialValues: {
       pitchName: "",
       phone: "",
       location: undefined,
       numberOfSubPitches: 1,
-      freeService: [] as FreeService[],
-      paidService: [] as PaidService[],
+      openAt: 8,
+      closeAt: 12,
+      freeServices: [] as FreeService[],
+      paidServices: [] as PaidService[],
     },
-    onSubmit: (values) => {
-      console.log(values);
+    validationSchema: createPitchValidation,
+    onSubmit: async (values, formikHelper) => {
+      if (values.closeAt !== 0 && values.openAt > values.closeAt) {
+        formikHelper.setFieldError(
+          "openAt",
+          "open hour must precede closing hour"
+        );
+        await createPitch(values);
+        navigate("/");
+      }
     },
   });
 
-  const handleFreeServicesChange = useCallback((value) => {
-    console.log(value);
-  }, []);
+  const handleFreeServicesChange = useCallback(
+    (target, value) => {
+      formik.setFieldValue("freeServices", value);
+    },
+    [formik]
+  );
 
-  const handlePaidServicesChange = useCallback((value) => {
-    console.log(value);
-  }, []);
+  const handlePaidServicesChange = useCallback(
+    (target, value) => {
+      formik.setFieldValue("paidServices", value);
+    },
+    [formik]
+  );
 
   const handleClickAvatar = useCallback(() => {
     dispatch(toggleSideBar());
@@ -73,7 +93,6 @@ const CreatePitch = () => {
     },
     [formik]
   );
-  console.log(formik.values.location);
   const locationText = useMemo(
     () =>
       `${round(formik.values.location?.location.lat ?? 0, 3)}, ${round(
@@ -82,7 +101,6 @@ const CreatePitch = () => {
       )}`,
     [formik.values.location?.location.lat, formik.values.location?.location.lng]
   );
-  console.log(locationText);
   return (
     <motion.div className={classes.container} {...pageTransition}>
       <LocationDialog
@@ -114,6 +132,7 @@ const CreatePitch = () => {
             error={formik.touched.pitchName && Boolean(formik.errors.pitchName)}
             helperText={formik.touched.pitchName && formik.errors.pitchName}
             className={classes.input}
+            value={formik.values.pitchName}
           />
 
           <TextField
@@ -140,6 +159,7 @@ const CreatePitch = () => {
           <TextField
             label="Phone"
             onChange={formik.handleChange}
+            value={formik.values.phone}
             name="phone"
             variant="outlined"
             error={formik.touched.phone && Boolean(formik.errors.phone)}
@@ -152,6 +172,7 @@ const CreatePitch = () => {
             label="Number of sub pitches"
             type="number"
             name="numberOfSubPitches"
+            value={formik.values.numberOfSubPitches}
             variant="outlined"
             error={
               formik.touched.numberOfSubPitches &&
@@ -170,31 +191,25 @@ const CreatePitch = () => {
           <div className={classes.dateContainer}>
             <Typography className={classes.dateTitle}>Date</Typography>
             <TextField
-              label="opens At"
-              type="time"
+              label="opens At (in hour)"
+              type="number"
               name="openAt"
-              defaultValue="08:00"
               className={classes.dateInput}
+              value={formik.values.openAt}
               InputLabelProps={{
                 shrink: true,
-              }}
-              inputProps={{
-                step: 300,
               }}
               onChange={formik.handleChange}
             />
 
             <TextField
-              label="Closes At"
-              type="time"
-              defaultValue="12:00"
+              label="Closes At (in hour)"
+              type="number"
               name="closeAt"
               className={classes.dateInput}
+              value={formik.values.closeAt}
               InputLabelProps={{
                 shrink: true,
-              }}
-              inputProps={{
-                step: 300,
               }}
             />
           </div>
@@ -281,7 +296,7 @@ const useStyle = makeStyles((theme) => ({
   inputContainer: {
     padding: 24,
     display: "flex",
-    alignItems: "center",
+    alignItems: "flex-start",
     gap: 16,
     maxWidth: 452,
     flexWrap: "wrap",
