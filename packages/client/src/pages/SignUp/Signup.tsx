@@ -39,7 +39,7 @@ function Signup() {
       email: "",
       userType: "player",
     },
-    validationSchema:signupValidation,
+    validationSchema: signupValidation,
     onSubmit: async (values, formikHelper) => {
       console.log("submitting", values, getServerUrl());
       try {

@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "./static/css/main.5d3dbc40.css",
+    "main.js": "./static/js/main.2bd05988.js",
+    "static/media/pitch.svg": "./static/media/pitch.9eb3644d888ae24cc5f985b7447e84e8.svg",
+    "static/media/logo.png": "./static/media/logo.70ac9b5ff9390263c789.png",
+    "static/media/juniorSoccer.svg": "./static/media/juniorSoccer.cbdda712b658ca5a0f5a801b59549b8c.svg",
+    "static/media/rectangle.png": "./static/media/rectangle.d033776c0f6c2f60d1a5.png",
+    "index.html": "./index.html",
+    "main.5d3dbc40.css.map": "./static/css/main.5d3dbc40.css.map",
+    "main.2bd05988.js.map": "./static/js/main.2bd05988.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5d3dbc40.css",
+    "static/js/main.2bd05988.js"
+  ]
+}

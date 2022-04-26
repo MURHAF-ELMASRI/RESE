@@ -1,5 +1,4 @@
 import checkTurkishPhoneNumber from "@rese/client-server/util/checkTurkishPhoneNumber";
-import generateCode from "@rese/client-server/util/generateCode";
 import bcrypt from "bcrypt";
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import { check, validationResult } from "express-validator";
@@ -62,7 +61,8 @@ const signup: RequestHandler[] = [
 
       const salt = await bcrypt.genSalt(5);
       const hashedPassword = await bcrypt.hash(password, salt);
-      const confirmationCode = generateCode();
+      // const confirmationCode = generateCode();
+      const confirmationCode = "698506";
       const confirmationCodeDate = Date().toString();
 
       const result = await userTable.findOne({
