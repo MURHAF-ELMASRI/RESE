@@ -7,7 +7,6 @@ import type { SignupProps } from "@rese/client-server/api/signup";
 import juniorScore from "@rese/client/src/assets/juniorSoccer.svg";
 import logo from "@rese/client/src/assets/logo.png";
 import rectangle from "@rese/client/src/assets/rectangle.png";
-import Select from "@rese/client/src/components/Select";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
 import React, { useCallback, useState } from "react";
@@ -133,7 +132,7 @@ function Signup() {
               helperText={formik.touched.phone && formik.errors.phone}
             />
 
-            <Select
+            {/* <Select
               label="User Type"
               name="userType"
               data={[
@@ -142,7 +141,7 @@ function Signup() {
               ]}
               value={formik.values.userType}
               onChange={formik.handleChange}
-            />
+            /> */}
           </div>
 
           <Button

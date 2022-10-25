@@ -129,6 +129,7 @@ const useStyle = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     position: "relative",
+    width: "100%",
   },
   thumbnail: {
     width: "100%",

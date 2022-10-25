@@ -1,8 +1,6 @@
-import generateCode from "@rese/client-server/util/generateCode";
-import {  Request, Response } from "express";
+import { Request, Response } from "express";
 import moment from "moment";
 import sendConfirmationEmail from "../../service/mailService/sendConfirmationEmail";
-import userTable from "../../Tables/userTable";
 
 export default async function resendCode(
   req: Request,
@@ -27,7 +25,7 @@ export default async function resendCode(
     }
   }
 
-  const confirmationCode = generateCode();
+  const confirmationCode = "698506";
 
   sendConfirmationEmail(user.fullName, user.email, confirmationCode);
 

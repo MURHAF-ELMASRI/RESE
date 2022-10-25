@@ -1,16 +1,13 @@
-import { Icon } from "@iconify/react";
-import useMediaQuery  from "@material-ui/core/useMediaQuery/useMediaQuery";
-import   useTheme  from "@material-ui/core/styles/useTheme";
-import IconButton from "@material-ui/core/IconButton";
 import makeStyle from "@material-ui/core/styles/makeStyles";
+import useTheme from "@material-ui/core/styles/useTheme";
 import Typography from "@material-ui/core/Typography";
-import classNames from "classnames";
+import useMediaQuery from "@material-ui/core/useMediaQuery/useMediaQuery";
 import { motion } from "framer-motion";
-import React, { memo, useCallback } from "react";
+import { memo } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router";
-import Avatar from "../components/Avatar";
-import { RootState } from "../state/store";
+import Avatar from "../../src/components/Avatar";
+import { RootState } from "../../src/state/store";
+import Item from "./Item";
 
 const navItems = [
   {
@@ -27,27 +24,12 @@ const WIDTH = 308;
 
 function SideBar() {
   const user = useSelector((state: RootState) => state.user.user);
-  const navigate = useNavigate();
-  const location = useLocation();
   const classes = useStyle();
   const isSideBarOpen = useSelector(
     (state: RootState) => state.ui.isSideBarOpen
   );
   const theme = useTheme();
   const breakpoint = useMediaQuery(theme.breakpoints.up("sm"));
-  // const transition = useMemo(
-  //   () => ({
-  //     animate: ,
-  //   }),
-  //   [isSideBarOpen]
-  // );
-
-  const handleClick = useCallback(
-    (pathName) => {
-      navigate(pathName);
-    },
-    [navigate]
-  );
 
   if (!user) {
     return null;
@@ -67,19 +49,8 @@ function SideBar() {
         </Typography>
       </div>
       <div className={classes.body}>
-        {navItems.map(({ title, icon, path }) => (
-          <IconButton
-            key={path}
-            className={classNames(classes.listItemContainer, {
-              [classes.selectedListItem]: location.pathname === path,
-            })}
-            onClick={() => handleClick(path)}
-          >
-            <div className={classes.listItem}>
-              <Icon icon={icon} />
-              <Typography>{title}</Typography>
-            </div>
-          </IconButton>
+        {navItems.map(({ title, icon, path }, idx) => (
+          <Item icon={icon} title={title} path={path} key={idx} />
         ))}
       </div>
     </motion.div>
@@ -119,19 +90,5 @@ const useStyle = makeStyle((theme) => ({
     display: "flex",
     flexDirection: "column",
     padding: "16px 0",
-  },
-  listItemContainer: {
-    width: "100%",
-    height: 48,
-    borderRadius: 0,
-    justifyContent: "flex-start",
-  },
-  listItem: {
-    gap: 16,
-    display: "flex",
-    justifyContent: "flex-start",
-  },
-  selectedListItem: {
-    backgroundColor: theme.palette.action.active,
   },
 }));

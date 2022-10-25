@@ -1,8 +1,7 @@
 import makeStyle from "@material-ui/core/styles/makeStyles";
 import { AnimatePresence } from "framer-motion";
-import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import SideBar from "./container/SideBar";
+import SideBar from "./containers/SideBar/SideBar";
 import CreatePitch from "./pages/createPitch/CreatePitch";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";

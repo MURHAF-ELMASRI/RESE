@@ -3,10 +3,11 @@ import bcrypt from "bcrypt";
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import { check, validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
-import { pick, uniqueId } from "lodash";
+import { pick} from "lodash";
 import { secret } from "../../config/jwtSecret";
 import sendConfirmationEmail from "../../service/mailService/sendConfirmationEmail";
 import userTable from "../../Tables/userTable";
+import { v4 as uuidv4 } from 'uuid';
 
 const signup: RequestHandler[] = [
   async (req: Request, res: Response, next: NextFunction) => {
@@ -69,7 +70,7 @@ const signup: RequestHandler[] = [
         email,
         status: { $eq: "pending" },
       });
-      const userId = result?._id ?? uniqueId();
+      const userId = result?._id ?? uuidv4();
 
       if (result) {
         await userTable.updateOne(
